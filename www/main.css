@@ -1,0 +1,407 @@
+body, html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.activeTab *, .activeTab {
+  
+}
+
+.inactiveTab *, .inactiveTab {
+  width: 0px !important;
+  min-width: 0px !important;
+  max-height: 0px !important;
+  height: 0px !important;
+  min-height: 0px !important;
+  max-height: 0px !important;
+  opacity: 0 !important;
+  bottom: 0 !important;
+  z-index: -1 !important;
+}
+
+table.columnTable {
+	display: table;
+}
+table.columnTable tr {
+	display: table-cell;
+	vertical-align: top;
+	padding-right: 50px;
+}
+table.columnTable tr td {
+	display: block;
+}
+
+.danskTable {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.latinTable {
+  color: "#AAAAAA";
+  font-size: 14px;
+}
+
+#topBar {
+  width: 100%;
+  background: rgba(0,0,0,0.15);
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  height: 90px;
+}
+
+#topBar h1 {
+  text-align: center;
+}
+
+.gridSidebar {
+  background: #AAAAAA;
+  grid-area: sidebar;
+  height: 100%;
+}
+
+#habitatGrid .gridSidebar {
+  background: linear-gradient(180deg, #AAAAAA 65%, transparent);
+  grid-area: sidebar;
+  height: 100%;
+}
+
+.gridBody {
+  grid-area: body;
+  height: 100%;
+}
+
+#speciesGrid {
+  height: 100%;
+  width: 100%;
+  min-width: 100%;
+  display: grid;
+  column-gap: 0%;
+  grid-template:
+    'body divider sidebar'
+    'body divider difficulty';
+  grid-template-columns: 72.5% 2.5% 25%;
+  grid-template-rows: auto 45;
+}
+
+#habitatGrid {
+  height: 100%;
+  width: 100%;
+  min-width: 100%;
+  display: grid;
+  column-gap: 0%;
+  grid-template:
+    'body divider sidebar'
+    'body divider sidebar';
+  grid-template-columns: 72.5% 2.5% 25%;
+  grid-template-rows: auto 45;
+}
+
+#habitatPool {
+  height: 90%;
+  align-items: center;
+  margin: 5%;
+}
+
+#habitatInformation {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  font-variant: petite-caps;
+}
+
+/* .habitatSpecies {
+  padding-right: 50px;
+  font-size: 35px;
+  display: inline;
+  word-break: break-all;
+  font-weight: bold;
+  line-height: 75px;
+  color: black;
+  text-decoration: none;
+}
+
+.habitatSpecies:target + .iframe-preview {
+  opacity: 1;
+  transform: scale(.75);
+  display: inline;  
+  transition-delay: 1s;
+}
+
+.habitatSpecies:target {
+    box-shadow: 0 1px 5px rgba(0,0,0,.1);
+    border-color: #333;
+    color: firebrick;
+}
+
+.iframe-preview {
+  transition-duration: 1s;
+  transition-timing-function: steps(2, jump-both);
+  opacity: 0;
+  display: none;
+  box-shadow:0 1px 5px rgba(0,0,0,.5);
+  margin: 0px auto;
+  border:4px solid #fff;
+  overflow-x:hidden;
+  overflow-y:auto;
+  transform-origin:center bottom;
+}
+
+.iframe-preview iframe {
+  margin: 0 0 0 calc((100% - 1500px)/2);
+  display: inline;
+}
+
+.iframe-preview:{
+  opacity: 1;
+  transform: scale(.75);
+  display: inline;  
+}
+*/
+
+.close {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  position: inherit;
+  display: inline;
+  z-index: 99;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  border-radius: 50%;
+  color: white;
+  float: right;
+  text-align: center;
+  font-size: 36px;
+  text-decoration: none;
+  font-family: sans-serif;
+}
+
+#Input {
+  display: inline;
+  float: none;
+  text-align: center;
+}
+
+#Input input {
+  width: 125px;
+}
+
+label.control-label {
+  display: inline-block;
+  width: 50px;
+  font-variant: small-caps;
+}
+
+#speciesImage {
+  height: 100%;
+  width: 100%;
+  display: table
+}
+
+#speciesImage img {
+  margin: 5% auto;
+  display: block;
+}
+
+#speciesInformation {
+  margin: 0 15px;
+}
+
+#speciesReady {
+  margin: 5% auto;
+  display: block;
+  width: 25vw;
+}
+
+#loader {
+  margin: 5% auto;
+  display: block;
+  width: 50%;
+}
+
+.speciesName {
+  display: block;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  font-size: xx-large;
+  font-variant: petite-caps;
+  color: darkred;
+}
+
+.speciesTaxonomy {
+  display: block;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  font-size: large;
+  font-variant: all-petite-caps;
+  color: darkblue;
+}
+
+.wideImage {
+  max-height: 100%;
+  max-width: unset !important;
+}
+
+.habitatText {
+  padding-right: 15px;
+  word-break: break-work;
+}
+
+#ellenberg table {
+  width: 100%;
+}
+
+@keyframes difficulty {
+  from {
+    display: block;
+  }
+  to {
+    display: none;
+  }
+}
+
+#difficulty {
+  position: absolute;
+  margin: 0pt auto;
+  text-align: center;
+  animation-name: difficulty;
+  animation-duration: 2s;
+  transform: translateX(50vw) translateY(50vh);
+  background: ghostwhite;
+  padding: 5pt;
+  border-radius: 15px;
+  font-size: 36px;
+}
+
+#difficultyPlot {
+  background: linear-gradient(180deg, #AAAAAA, transparent);
+  grid-area: difficulty;
+}
+
+#difficultyPlot img {
+    width: -moz-available;
+    width: -webkit-fill-available;
+    width: fill-available;
+    height: auto;
+}
+
+#filterInput {
+  display: block;
+  width: 90%;
+  margin: auto 5%;
+}
+
+.filterSpecies {
+  width: 75%;
+  margin: 0 auto;
+  padding: 0;
+  display: block;
+}
+
+.filterSpecies > * {
+  width: 100%;
+  height: 25px;
+  padding: 0px;
+  margin: 0px;
+  display: block;
+}
+
+.label.control-label {
+  display: block;
+}
+
+.filterSpecies script {
+  display: none;
+}
+
+.filterSpecies button {
+  width: 50%;
+  margin: 0 auto;
+  height: 25px;
+  text-align: center;
+  display: block;
+}
+
+#filterVariable, #filterValue {
+  width: -webkit-fill-available;
+}
+
+.tab {
+  position: fixed;
+  z-index: 99;
+  padding-left: 25px;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  margin: 15px 25px auto auto;
+  border-radius: unset;
+  width: fit-content;
+  background-color: #ddd;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+}
+
+/* From uiverse.io */
+button {
+  padding: 1.3em 3em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  margin: 5% auto;
+  display: block;
+  width: 50%;
+}
+
+button:hover {
+  background-color: #23c483;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+button:active {
+  transform: translateY(-1px);
+}
