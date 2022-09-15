@@ -27,7 +27,7 @@ plotHab <- read_rds("raw data/Spatial.rds") %>%
   mutate(majorHab = hash::values(majorHab, habtype)) %>% 
   relocate(majorHab,habtype) 
 
-write_rds(plotHab, "clean data/plotHabitat.rds")
+write_rds(plotHab, "clean data/plotHabitat.rds", compress = "xz")
 
 # Transform the species presence matrix into a species pool dataframe (much more efficient due to the number of missing species pr. plot, i.e. 0 entries) and clean and translate the species names to Danish add Wikipedia URL convenience. 
 plotHab %>%
