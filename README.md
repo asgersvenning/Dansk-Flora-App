@@ -1,3 +1,4 @@
+<title> Learning tool for the course "Dansk Flora og Vegetationsøkologi" </title>
 # Setup
 
 **Important:** It is important to update R and RTools to the newest version (both can be found on [the offical website of R](https://www.r-project.org/)) and RStudio as the app has not been created with compatibility in mind. The app has been verified to work on *"R version 4.1.3 (2022-03-10)"*.
@@ -33,21 +34,21 @@ sapply(necessaryPackages, function(x) {
     * If the app freezes (which is quite possible) the user should refresh the page or restart the app, depending on how the user is using the app (*shinyapps.io* vs. locally).
 
 
-# (More) Detailed information
+# (More) Detailed Information
 A short description of the use and functionality of the app.
 
 ## Layout
 
-![](readme images/appLayout.jpg)
+![Application layout](readme images/appLayout.jpg)
 
-### Learning tool menu
+### Learning Tool Menu
 A menu where the user can switch between the different tools that are a part of the app.
 
-### User interface
+### User Interface
 This is where almost all of the interactive user inputs live; buttons for requesting a new observation or habitat, changing the current observation photo, revealing the species or habitat etc.
 Some of the information regarding the species that will be shown after the species is revealed can also be found here.
 
-### Observation window
+### Observation Window
 This is where the app displays the information (photo or species list) which the user can use to guess either which species is in an observation or which habitat a species list is from.
 The user can also click on an image of a species and be redirected to the INaturalist observation from which the image is taken. This could be used by the user to make a new identification of the observation species, if the user believes the observation ID is wrong.
 
@@ -80,21 +81,21 @@ There is also the possibility of using the keyboard keys 1-4 after revealing a s
 The numbers in the italic parenthesis, difficulty multiplier, are used as sampling weights and will update the currently shown species sampling weight by multiplying the difficulity multiplier. This way a user can quickly ensure that they are shown more and more "hard" species and less and less "easy" species.
 
 
-# Delredskab habitatkendskab
-Her kan man anmode en artsliste vha. knappen ”Tryk for (nyt) habitat!”, hvorefter en artsliste samt gennemsnitlige Ellenberg-værdier vises i observationsruden. Herefter kan man afsløre habitatet ved vha. knappen ”Afslør habitatet!”, hvorefter to informationer præsenteres:
+# Learning Tool: Habitat Knowledge
+The main functionality of this tool is to allow the user to sample the species pool of a real NOVANA plot, which they can then try to guess. The tool also calculates mean Ellenberg scores (for the species with available data) as well as shows the vernacular (if available) and scientific name.
+The user can request a new plot using the button "Tryk for (nyt) habitat!", which will reveal the aforementioned species list and Ellenberg scores.
 
-1)	Habitatets navn, først navnet som jeg har forsøgt at oversætte fra NOVANA-typer til de, der var opgivet i vores pensum. I parentes findes habitatets ”rigtige” navn fra NOVANA, så det vil jeg nok hæfte mig mest til.
-2)	Et histogram over frekvensen af de (op til 25) mest almindelige arter i habitatet (udregnet fra alle plots som findes i redskabet).
+After the user has guessed on the habitat type of the plot in question, the answer can be revealed by the user pressing the button "Afslør habtiatet!", which will reveal the following information:
 
-Jeg har forsøgt at oversætte de latinske navne, men dette virker kun for arter som findes på Wikipedia under det latinske navn, som er opgivet i NOVANA. Oversættelsen er en smule ustabil især for kompleks-arter og mosser, men man kan altid bruge de latinske navne i det tilfælde.
+1) The habitat name. The first name is a "translated" name in accordance with the curriculum of last year, while the second name in parentheses is the official NOVANA habitat name.
 
-**OBS:** Dette delredskab kan være mere ustabilt end det første.
+2) A species frequency histogram of the up to 25 most common species in the habitat (not just the current plot, which only contains presence/absence data from my data source).
 
-# Noter
-Redskabets funktionalitet kan selvfølgelig ændres og tilpasses hvis det ønskes. Fx kan mosser fjernes fra habitaternes artslister og der kan tilføjes flere arter, datakilder til fx Ellenberg-værdier (i demoen taget fra Ellenberg et al. 1991), flere NOVANA-plots (måske med frekvens-estimater). Jeg ville fx være interesseret i at inkorporere information og/eller nøglepunkter fra Dansk Flora (bogen, hvis jeg må, men det kan man nok finde ud af). 
+I have attempted to translate the scientific Latin names using Wikipedia, but this only works in case there is a Wikipedia entry of the species under the scientific name used in NOVANA. This has caused the translation to become a little unstable especially for "uncharismatic", cryptic or rare species, but it works quite well for vascular plants.
 
-Ikke alle arter er repræsenteret lige godt (fx er der næsten ingen observationer af andre svingler end rød svingel og fåresvingel i iNaturalist), men alle urter og træer er selvfølgelig repræsenteret mere end tilstrækkeligt, det samme gør sig også gøre for de fleste siv og halvgræsser, men græsserne halter lidt. Jeg kan evt. undersøge, om der er flere billeder af disse tilgængelig i andre databaser.
+**PSA:** This tool can be more unstable than the first.
 
-Til sidst vil jeg understrege at demo’en er meget midlertidig. Det vil sige at jeg bruger en gratis (langsom) server, samt at app’en vil stoppe med at virke efter at den bruges i et stykke tid. Derudover er jeg også opmærksom på, at nogle dele af brugerfladen er noget uigennemskuelige eller counter-intuitive. Det skyldes primært at jeg havde begrænset tid til at udvikle redskabet (jeg skulle jo egentlig læse til eksamen!), og at jeg kan se og rette fejl som de opstår, når jeg bruger redskabet lokalt på min pc. Disse problemer vil være den umiddelbart største arbejdsbyrde, hvis redskabet skal kunne udnyttes af et hold studerende gnidningsfrit og vil derfor være min prioritet!
+# Notes
+A major drawback of this learning application in it's current state, is the imbalance between charismatic and uncharismatic species in the "Species Identification" learning tool, which in essence could reenforce this bias in the learner. This bias also extends to the translation of names, extra information on the species etc. This tool also currently only contains species from the previous year's curriculum, which might be undesirable.
 
-Kommentarer, observationer og spørgsmål modtages med glæde!
+For the other learning tool "Habitat Knowledge", there is also bias in the number of plots in each habitat type, however I think it is a reasonable assumption that this bias reflects the actual frequency of habitats, at least to a large degree. However an issue with this tool that I and others have noticed, is that the translation from NOVANA habitats to curriculum habitats (which was done using a manual dictionary created by me), was less than ideal. Also some habitats are basically impossible to distinguish, at least when the species lists are short (which differs between plots.
