@@ -39,7 +39,7 @@ A short description of the use and functionality of the app.
 
 ## Layout
 
-![Application layout](readme images/appLayout.jpg)
+![](https://github.com/asgersvenning/Dansk-Flora-App/blob/759de68c860626c314a722cbdf220a8d9dd675eb/readme%20images/appLayout.jpg?raw=true)
 
 ### Learning Tool Menu
 A menu where the user can switch between the different tools that are a part of the app.
