@@ -33,7 +33,7 @@ A demo of the app can be found on [shinyapps.io](https://asvenning.shinyapps.io/
     -   The app was not designed initially to be used on a server.
     -   If the app freezes (which is quite possible) the user should refresh the page or restart the app, depending on how the user is using the app (*shinyapps.io* vs. locally).
 
-# (More) Detailed Information
+# Detailed Information and Documentation
 
 A short description of the use and functionality of the app.
 
