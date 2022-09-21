@@ -80,7 +80,7 @@ There is also the possibility of using the keyboard keys 1-4 after revealing a s
 
 The numbers in the italic parenthesis, difficulty multiplier, are used as sampling weights and will update the currently shown species sampling weight by multiplying the difficulity multiplier. This way a user can quickly ensure that they are shown more and more "hard" species and less and less "easy" species.
 
-# Learning Tool: Habitat Knowledge
+## Learning Tool: Habitat Knowledge
 
 The main functionality of this tool is to allow the user to sample the species pool of a real NOVANA plot, which they can then try to guess. The tool also calculates mean Ellenberg scores (for the species with available data) as well as shows the vernacular (if available) and scientific name. The user can request a new plot using the button "Tryk for (nyt) habitat!", which will reveal the aforementioned species list and Ellenberg scores.
 
