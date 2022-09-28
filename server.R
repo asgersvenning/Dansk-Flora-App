@@ -38,7 +38,7 @@ server = function(input, output) {
                               "canUpdateDifficulty"))
   
   # Load the NOVANA habitat species pools
-  habitats <- read_rds("habitatPools.rds") %>% 
+  habitats <- read_rds("clean data/habitatPools.rds") %>% 
     # mutate(pool = map(pool, function(x) x %>% 
     #                     mutate(wiki_url = ifelse(str_detect(wiki_url,"https"),wiki_url,NA)))) %>% 
     group_by(habtype) %>% 
@@ -47,7 +47,7 @@ server = function(input, output) {
     select(!fid)
   
   # Load the data frame with the INaturalist ids along with species names
-  observations <- read_rds("observations.rds") %>% 
+  observations <- read_rds("clean data/observations.rds") %>% 
     ungroup %>% 
     filter(!is.na(scientific_name)) %>%
     group_by(scientific_name) %>% 
