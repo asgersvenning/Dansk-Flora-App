@@ -20,12 +20,12 @@
 ##
 golem::fill_desc(
   pkg_name = "learnDFV", # The Name of the package containing the App
-  pkg_title = "PKG_TITLE", # The Title of the package containing the App
-  pkg_description = "PKG_DESC.", # The Description of the package containing the App
-  author_first_name = "AUTHOR_FIRST", # Your First Name
-  author_last_name = "AUTHOR_LAST", # Your Last Name
-  author_email = "AUTHOR@MAIL.COM", # Your Email
-  repo_url = NULL # The URL of the GitHub Repo (optional)
+  pkg_title = "Learning tool for 'Dansk Flora og Vegetationsøkologi'", # The Title of the package containing the App
+  pkg_description = "A learning app for the bachelors course 'Dansk Flora og Vegetationsøkologi' in Biology at Aarhus University. The app is supposed to act as a tool to enhance the learning process for the names and characteristics of the species in the danish flora as well as the habitats in which they can be found.", # The Description of the package containing the App
+  author_first_name = "Asger", # Your First Name
+  author_last_name = "Svenning", # Your Last Name
+  author_email = "asgersvenning@gmail.com", # Your Email
+  repo_url = "https://github.com/asgersvenning/Dansk-Flora-App" # The URL of the GitHub Repo (optional)
 )
 
 ## Set {golem} options ----
@@ -33,7 +33,7 @@ golem::set_golem_options()
 
 ## Create Common Files ----
 ## See ?usethis for more information
-usethis::use_mit_license("Golem User") # You can set another license here
+usethis::use_mit_license("Asger Svenning") # You can set another license here
 usethis::use_readme_rmd(open = FALSE)
 # Note that `contact` is required since usethis version 2.1.5
 # If your {usethis} version is older, you can remove that param

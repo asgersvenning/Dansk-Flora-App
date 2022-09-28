@@ -5,3 +5,6 @@
 Dansk Flora App.Rproj
 .secrets/**
 .secrets
+.Rdata
+.httr-oauth
+.DS_Store
