@@ -1,31 +1,38 @@
-htmlTemplate(
-  "www/index.html",
-  filterObservations = inputPanel(
-    selectInput("filterVariable",NULL,c("scientific_name","common_name","taxon_class_name","taxon_order_name","taxon_family_name","taxon_genus_name"),selected = "taxon_family_name"),
-    textInput("filterValue",NULL,"Skriv text her!"),
-    br(class = ""),
-    actionButton("filterApply","Filtrer"),
-    cellArgs = list(class = "filterSpecies"),
-    id = "filterInput"
-  ),
-  fetchButton = actionButton("fetchSpecies","Tryk for (ny) art!"),
-  switchButton = actionButton("switchImage", "Skift billede"),
-  speciesImage = htmlOutput("speciesImage"),
-  difficultyTrigger = htmlOutput("difficultyTrigger"),
-  difficultyPlot = plotOutput("difficultyPlot", width = Inf, height = Inf),
-  speciesInformation = inputPanel(
-    htmlOutput("speciesInformation"),
-    htmlOutput("ellenberg")
-    # div(
-    #   textInput("guessSpecies","Art"),
-    #   textInput("guessGenus","Slægt"),
-    #   textInput("guessFamily","Familie"),
-    #   id = "Input",
-    #   style = "width: 100%;"
-    # )
-  ),
-  fetchHabitat = actionButton("fetchHabitat","Tryk for (nyt) habitat!"),
-  habitatInformation = htmlOutput("habitatInformation"),
-  habitatPool = htmlOutput("habitatPool"),
-  habitatEllenberg = htmlOutput("habitatEllenberg")
-)
+#' @importFrom shiny tagList
+#' @importFrom htmltools htmlTemplate
+
+app_ui <- function() {
+  tagList(
+    golem_add_external_resources(),
+    htmlTemplate(
+      "index.html",
+      speciesToolUI("habitatUI"),
+      habitatToolUI("speciesUI")
+    )
+  )
+}
+
+
+
+#' @import shiny
+golem_add_external_resources <- function(){
+  
+  addResourcePath(
+    'www', 
+    system.file('app/www', package = 'golemexample')
+  )
+  
+  addResourcePath("shinyjs", 
+                  system.file("srcjs", package = "shinyjs"))
+  
+  tags$head(
+    golem::activate_js(),
+    golem::favicon(),
+    # Add here all the external resources
+    # If you have a custom.css in the inst/app/www
+    # Or for example, you can add shinyalert::useShinyalert() here
+    tags$link(rel="stylesheet", type="text/css", href="www/custom.css"), 
+    tags$script(src="www/alertme.js"), 
+    tags$script(src="www/handlers.js")
+  )
+}

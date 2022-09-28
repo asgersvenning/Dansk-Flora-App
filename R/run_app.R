@@ -1,22 +1,17 @@
-# Run app locally
-
-library(shiny)
-
-runApp(launch.browser = T)
-
-
-# # Deploy app
-# 
-# rsconnect::deployApp(
-#   appDir = "C:/Users/asger/Documents/Tilfældigheder/DanskFloraApp",
-#   appFiles = c("server.R",
-#                "ui.R",
-#                "observations.rds",
-#                "habitatPools.rds",
-#                ".secrets/",
-#                "www/"),
-#   appTitle = "Læringsredskab - Dansk Flora og Vegetationsøkologi",
-#   upload = T,
-#   lint = T # Autodebug on upload?
-# )
-
+#' Run the Shiny Application
+#'
+#' @export
+#' @importFrom shiny shinyApp
+#' @importFrom golem with_golem_options
+run_app <- function(
+    name = "DFV Learning Tool", 
+    time = Sys.time(), 
+    port = 2811
+) {
+  with_golem_options(
+    app = shinyApp(ui = app_ui, 
+                   server = app_server, 
+                   options = list(port = port)), 
+    golem_opts = list(name = name, time = time)
+  )
+}

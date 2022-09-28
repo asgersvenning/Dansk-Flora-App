@@ -8,3 +8,6 @@ Dansk Flora App.Rproj
 .Rdata
 .httr-oauth
 .DS_Store
+inst/doc
+/doc/
+/Meta/

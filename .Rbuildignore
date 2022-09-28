@@ -6,3 +6,7 @@ dev_history.R
 $run_dev.*
 ^LICENSE\.md$
 ^CODE_OF_CONDUCT\.md$
+^\.secrets$
+^doc$
+^Meta$
+^codecov\.yml$

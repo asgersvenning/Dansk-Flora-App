@@ -22,18 +22,18 @@ library(future)
 #### Pipeline
 # 0.
 # This script is separate from the rest of the preprocessing pipeline. Merges and cleans Ellenberg from the raw data sources.
-source("preprocessing/ellenberg.R")
+source("ellenberg.R")
 
 # 1.
 # This script only contains a function for "translating" Latin scientific names to vernacular names (either Danish or English) using Wikipedia. The function is used in other scripts.
-source("preprocessing/translateFromLatin.R")
+source("translateFromLatin.R")
 
 # 2.
 # This script tries to find the INaturalist taxon ID (needed later) also using Wikipedia, however it has implemented 3 different pathways to find the INaturalist ID:
 #   - Search Wikipedia using the scientific Latin name
 #   - Search Wikipedia using the vernacular danish name
 #   - Query the INaturalist API using the scientific Latin name
-source("preprocessing/scrapeSpeciesINaturalistID.R")
+source("scrapeSpeciesINaturalistID.R")
 
 # 3.
 # This script cleans and joins two raw data files (from the course github anno 2021) containing information on the species composition and habitat type. The result is a data frame (tibble) containing a row for each NOVANA plot with the following columns:
@@ -43,11 +43,11 @@ source("preprocessing/scrapeSpeciesINaturalistID.R")
 #     - LATINSK.NAVN: Scientific Latin name.
 #     - DANSK.NAVN: Danish vernacular name.
 #     - wiki_url: Wikipedia url, preferably in Danish, but in English if no Danish page could be found.
-source("preprocessing/PlotHabitatsAndPools.R")
+source("PlotHabitatsAndPools.R")
 
 # 4. 
 # This script creates species histograms for each of the habitats (only shows species with a presence frequency of more than 1%).
-source("preprocessing/HabitatSpeciesHistograms.R")
+source("HabitatSpeciesHistograms.R")
 
 # 5.
 # This script assembles meta data for the INaturalist observations; a data frame containing the following columns:
@@ -63,4 +63,4 @@ source("preprocessing/HabitatSpeciesHistograms.R")
 #   - habitat: habitats in which the species is found as a HTML string.
 #   - Wikipedia url.
 #   - Ellenberg values.
-source("preprocessing/Metadata.R")
+source("Metadata.R")
