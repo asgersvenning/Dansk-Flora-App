@@ -117,5 +117,5 @@ hexFinish <- sticker_mod(hexBase,
         h_color = "#cd8b29",
         package="learnDFV")
 
-ggsave("learnDFV_Sticker.png", hexFinish, dpi = 400, width = 4, height = 4.5, scale = .5)
+ggsave("readme_files/learnDFV_Sticker.png", hexFinish, dpi = 400, width = 2, height = 2.25, scale = 1)
 
