@@ -27,7 +27,7 @@ Table of Contents
         Knowledge</a>
 -   <a href="#3-notes" id="toc-3-notes">3 Notes</a>
 
-![](readme_files/learnDFV_sticker.png)
+![](readme_files/learnDFV_sticker.png?raw=true)
 
 <br>
 

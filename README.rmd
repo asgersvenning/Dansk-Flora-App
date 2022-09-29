@@ -13,7 +13,7 @@ always_include_html: true
 demo_url <- "https://asvenning.shinyapps.io/lringsredskab_-_dansk_flora_og_vegetationskologi/?_ga=2.117524928.852255328.1662635286-946788904.1657455478"
 ```
 
-![](readme_files/learnDFV_sticker.png)
+![](readme_files/learnDFV_sticker.png?raw=true)
 
 <br>
 
