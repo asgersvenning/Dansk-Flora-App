@@ -3,6 +3,8 @@
 #' This function is only used to fix some problematic species names.
 #' 
 #' @noRd 
+#' @importFrom magrittr %>%
+
 translate_id <- Vectorize(function(id, str, latin=F) {
   out <- if (!latin) {
     id %>% 
@@ -33,7 +35,8 @@ translate_id <- Vectorize(function(id, str, latin=F) {
 #' @returns If x and y are both not NA and equal x, else if both are not NA '{x} ({y})' else return prioritize not NA.
 #' @noRd
 #' 
-#' @importFrom stringr str_to_title, str_extract
+#' @importFrom stringr str_to_title str_extract
+#' @importFrom magrittr %>%
 
 combine_two <- function(x,y) {
   x <- x %>% 
@@ -63,10 +66,10 @@ combine_two <- function(x,y) {
 #' @importFrom rjson fromJSON
 #' @importFrom stringr str_replace
 #' @import dplyr
-#' @importfrom tibble tibble
+#' @importFrom tibble tibble
 #' @importFrom purrr map_dbl
-
-
+#' @importFrom magrittr %>% %$%
+#' @importFrom tidyr nest unnest
 
 queryPage <- function(size = 10) {
   
@@ -118,4 +121,56 @@ queryPage <- function(size = 10) {
   
   
   return(out)
+}
+
+#' htmlTemplate_mod
+#' @description htmlTemplate but without the bs automatic header changes
+#' 
+#' @noRd
+#' 
+#' @importFrom shiny htmlOutput
+#' @import magrittr
+
+htmlTemplate_mod <- function(..., full = F, escape_header = F) {
+  remove_body_and_header <- function(x) {
+    temp <- x
+    temp[[1]][[1]] <- temp[[1]][[1]] %>% 
+      as.character %>% 
+      stringr::str_remove("(?s).*<body>.{3}") 
+    attributes(temp[[1]][[1]]) <- attributes(x[[1]][[1]])
+    
+    last <- length(temp[[1]])
+    
+    temp[[1]][[last]] <- temp[[1]][[last]] %>% 
+      as.character %>% 
+      stringr::str_remove("(?s).{1}</body>(?s).*") 
+    
+    attributes(temp[[1]][[last]]) <- attributes(x[[1]][[last]]) 
+    
+    temp
+  }
+  
+  remove_header_comment <- function(x) {
+    temp <- x
+    temp[[1]][[1]][[1]] <- temp[[1]][[1]][[1]] %>% 
+      stringr::str_remove("<!\\-\\- (?=<head>)") %>% 
+      stringr::str_remove("(?<=<\\/head>) \\-\\->") 
+    
+    attributes(temp[[1]][[1]][[1]]) <- attributes(x[[1]][[1]][[1]])
+    
+    temp
+  }
+  
+  out <- htmlTemplate(...)
+  
+  if (!full & escape_header) stop("Cannot be a partial HTML with header.")
+  
+  if (!full) {
+    return(remove_body_and_header(out))
+  }
+  if (escape_header) {
+    return(remove_header_comment(out))
+  }
+    
+  out
 }

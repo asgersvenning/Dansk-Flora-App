@@ -6,12 +6,14 @@
 run_app <- function(
     name = "DFV Learning Tool", 
     time = Sys.time(), 
-    port = 2811
+    port = 2811,
+    ...
 ) {
   with_golem_options(
     app = shinyApp(ui = app_ui, 
                    server = app_server, 
                    options = list(port = port)), 
-    golem_opts = list(name = name, time = time)
+    golem_opts = list(name = name, time = time),
+    ...
   )
 }

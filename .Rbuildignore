@@ -10,3 +10,6 @@ $run_dev.*
 ^doc$
 ^Meta$
 ^codecov\.yml$
+^\.github$
+^\.travis\.yml$
+^appveyor\.yml$

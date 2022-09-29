@@ -13,6 +13,7 @@ always_include_html: true
 demo_url <- "https://asvenning.shinyapps.io/lringsredskab_-_dansk_flora_og_vegetationskologi/?_ga=2.117524928.852255328.1662635286-946788904.1657455478"
 ```
 
+![](learnDFV_sticker.png)
 
 <br>
 
@@ -59,7 +60,7 @@ A short description of the use and functionality of the app.
 
 ## Layout
 
-![](https://github.com/asgersvenning/Dansk-Flora-App/blob/759de68c860626c314a722cbdf220a8d9dd675eb/readme%20images/appLayout.jpg?raw=true)
+![](readme_files/appLayout.jpg)
 
 ### Learning Tool Menu
 
@@ -119,7 +120,3 @@ I have attempted to translate the scientific Latin names using Wikipedia, but th
 A major drawback of this learning application in it's current state, is the imbalance between charismatic and uncharismatic species in the "Species Identification" learning tool, which in essence could reenforce this bias in the learner. This bias also extends to the translation of names, extra information on the species etc. This tool also currently only contains species from the previous year's curriculum, which might be undesirable.
 
 For the other learning tool "Habitat Knowledge", there is also bias in the number of plots in each habitat type, however I think it is a reasonable assumption that this bias reflects the actual frequency of habitats, at least to a large degree. However an issue with this tool that I and others have noticed, is that the translation from NOVANA habitats to curriculum habitats (which was done using a manual dictionary created by me), was less than ideal. Also some habitats are basically impossible to distinguish, at least when the species lists are short (which differs between plots.
-
-# Testing
-
-[![Codecov test coverage](https://codecov.io/gh/asgersvenning/Dansk-Flora-App/branch/GitHub/graph/badge.svg)](https://app.codecov.io/gh/asgersvenning/Dansk-Flora-App?branch=GitHub)

@@ -10,16 +10,19 @@
 #' @import dplyr
 #' @importFrom kableExtra kable
 #' @importFrom stringr str_replace
-#' 
 
 habitatToolUI <- function(id){
   ns <- NS(id)
-  tagList(
-    fetchHabitat = actionButton("fetchHabitat","Tryk for (nyt) habitat!"),
-    habitatInformation = htmlOutput("habitatInformation"),
-    habitatPool = htmlOutput("habitatPool"),
-    habitatEllenberg = htmlOutput("habitatEllenberg")
-  )
+  # tagList(
+    htmlTemplate_mod(
+      app_sys("app/www/habitats.html"),
+      fetchHabitat = actionButton("fetchHabitat","Tryk for (nyt) habitat!"),
+      habitatInformation = htmlOutput("habitatInformation"),
+      habitatPool = htmlOutput("habitatPool"),
+      habitatEllenberg = htmlOutput("habitatEllenberg"),
+      full = F
+    )
+  # )
 }
 
 #' habitatTool Server Functions
@@ -30,9 +33,10 @@ habitatToolUI <- function(id){
 #' @importFrom kableExtra kable
 #' @import dplyr
 #' @import shiny
+#' @importFrom magrittr %>%
 
 habitatToolServer <- function(id){
-  moduleServer( id, function(input, output, session){
+  moduleServer(id, function(input, output, session){
     ns <- session$ns
     
     ###### Habitat app

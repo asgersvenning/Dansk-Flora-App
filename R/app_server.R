@@ -4,38 +4,26 @@
 #' @noRd
 #' 
 #' @import shiny
-#' @importFrom shinyjs useShinyjs, extendShinyjs
-#' @importFrom readr read_rds
+#' @importFrom shinyjs useShinyjs extendShinyjs
 #' @import dplyr
 #' @importFrom stringr str_split
+#' @importFrom magrittr %>% is_greater_than set_names
 
-app_server <- function(input, output) {
-  useShinyjs(html = T)
-  
-  # Load the custom javascript files that allow for extended behavior of the app.
-  extendShinyjs("main.js",
-                functions = c("backgroundCol",
-                              "addLoader",
-                              "toggleElement",
-                              "canUpdateDifficulty"))
-  
+app_server <- function(input, output, session) {
   # Load the NOVANA habitat species pools
-  habitats <-  habitat %>% 
+  habitats <- habitatPools %>% 
     group_by(habtype) %>% 
     mutate(n = n()) %>% 
     ungroup %>% 
     select(!fid)
   
   # Load the data frame with the INaturalist ids along with species names
-  observations <- read_rds("clean data/observations.rds") %>% 
+  observations <- observations %>% 
     ungroup %>% 
     filter(!is.na(scientific_name)) %>%
     group_by(scientific_name) %>% 
     mutate(n = n()) %>% 
     ungroup
-  
-  # Load the species meta data
-  speciesMeta <- read_rds("clean data/speciesMeta.rds")
   
   # Initiate a reactive object to store dynamic values
   values <- reactiveValues()
@@ -58,7 +46,7 @@ app_server <- function(input, output) {
   
   # When the app has finished setting up the necessary data frames and completed the first query
   # show the user a checkmark.
-  output$speciesImage <- renderText({'<img id="speciesReady" src="checkmark.jpg"></img>'})
+  output$speciesImage <- renderText({'<img id="speciesReady" src="www/checkmark.jpg"></img>'})
   
   # Function for subsetting the observations using the filter form in the user interface.
   observeEvent(input$filterApply, {
@@ -80,7 +68,7 @@ app_server <- function(input, output) {
   
   # Connect shiny modules for the learning tools
   
-  speciesToolServer("speciesTool")
+  speciesToolServer("species")
   
-  habitatToolServer("habitatTool")
+  habitatToolServer("habitats")
 }

@@ -7,49 +7,64 @@
 #' @noRd 
 #'
 #' @import shiny
-#' @importFrom shinyjs toggleElement
-#' @importFrom shinyjs js
-#' @import dplyr
-#' @importFrom magrittr extract
-#' @import ggplot
-#' @importFrom ggpubr theme_pubr
-#' @importFrom kableExtra kable
-#' @importFrom tibble tibble
-#' @importFrom purrr map2_chr
 
 speciesToolUI <- function(id){
   ns <- NS(id)
-  tagList(
-    filterObservations = inputPanel(
-      selectInput("filterVariable",NULL,c("scientific_name","common_name","taxon_class_name","taxon_order_name","taxon_family_name","taxon_genus_name"),selected = "taxon_family_name"),
-      textInput("filterValue",NULL,"Skriv text her!"),
-      br(class = ""),
-      actionButton("filterApply","Filtrer"),
-      cellArgs = list(class = "filterSpecies"),
-      id = "filterInput"
-    ),
-    fetchButton = actionButton("fetchSpecies","Tryk for (ny) art!"),
-    switchButton = actionButton("switchImage", "Skift billede"),
-    speciesImage = htmlOutput("speciesImage"),
-    difficultyTrigger = htmlOutput("difficultyTrigger"),
-    difficultyPlot = plotOutput("difficultyPlot", width = Inf, height = Inf),
-    speciesInformation = inputPanel(
-      htmlOutput("speciesInformation"),
-      htmlOutput("ellenberg")
-      # div(
-      #   textInput("guessSpecies","Art"),
-      #   textInput("guessGenus","Slægt"),
-      #   textInput("guessFamily","Familie"),
-      #   id = "Input",
-      #   style = "width: 100%;"
-      # )
+  # tagList(
+    htmlTemplate_mod(
+      app_sys("app/www/species.html"),
+      filterObservations = inputPanel(
+        selectInput("filterVariable", 
+                    NULL,
+                    c("scientific_name",
+                      "common_name",
+                      "taxon_class_name",
+                      "taxon_order_name",
+                      "taxon_family_name",
+                      "taxon_genus_name"),
+                    selected = "taxon_family_name"),
+        textInput("filterValue",
+                  NULL,
+                  "Skriv text her!"),
+        br(class = ""),
+        actionButton("filterApply",
+                     "Filtrer"),
+        cellArgs = list(class = "filterSpecies"),
+        id = "filterInput"
+      ),
+      fetchButton = actionButton("fetchSpecies", "Tryk for (ny) art!"),
+      switchButton = actionButton("switchImage", "Skift billede"),
+      speciesImage = htmlOutput("speciesImage"),
+      difficultyTrigger = htmlOutput("difficultyTrigger"),
+      difficultyPlot = plotOutput("difficultyPlot", width = Inf, height = Inf),
+      speciesInformation = inputPanel(
+        htmlOutput("speciesInformation"),
+        htmlOutput("ellenberg")
+        # div(
+        #   textInput("guessSpecies","Art"),
+        #   textInput("guessGenus","Slægt"),
+        #   textInput("guessFamily","Familie"),
+        #   id = "Input",
+        #   style = "width: 100%;"
+        # )
+      ),
+      full = F
     )
-  )
+  # )
 }
 
 #' speciesTool Server Functions
 #'
 #' @noRd 
+#' @import shiny
+#' @importFrom shinyjs js hideElement showElement delay toggleElement 
+#' @import dplyr
+#' @importFrom magrittr extract %>%
+#' @import ggplot2
+#' @importFrom ggpubr theme_pubr
+#' @importFrom kableExtra kable
+#' @importFrom tibble tibble
+#' @importFrom purrr map2_chr 
 speciesToolServer <- function(id){
   moduleServer(id, function(input, output, session){
     ns <- session$ns

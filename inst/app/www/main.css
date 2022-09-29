@@ -300,8 +300,8 @@ label.control-label {
 
 #filterInput {
   display: block;
-  width: 90%;
-  margin: auto 5%;
+  width: 50%;
+  margin: auto;
 }
 
 .filterSpecies {

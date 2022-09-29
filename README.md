@@ -27,6 +27,8 @@ Table of Contents
         Knowledge</a>
 -   <a href="#3-notes" id="toc-3-notes">3 Notes</a>
 
+![](learnDFV_sticker.png)
+
 <br>
 
 <center>
@@ -96,7 +98,7 @@ A short description of the use and functionality of the app.
 
 ## 2.1 Layout
 
-![](https://github.com/asgersvenning/Dansk-Flora-App/blob/759de68c860626c314a722cbdf220a8d9dd675eb/readme%20images/appLayout.jpg?raw=true)
+![](readme_files/appLayout.jpg)
 
 ### 2.1.1 Learning Tool Menu
 

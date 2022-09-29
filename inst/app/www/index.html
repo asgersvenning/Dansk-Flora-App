@@ -1,55 +1,16 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <script type='text/javascript' > 
-  var canUpdateDifficulty = false; 
-  </script>
-  <script src="shared/jquery.js" type="text/javascript"></script>
-  <script src="shared/shiny.js" type="text/javascript"></script>
-  <script src="shinyjs/inject.js" type="text/javascript"></script>
-  <script src="accessory.js" type="text/javascript"></script>
-  <link rel="stylesheet" type="text/css" href="shiny.css"/>
-  <link rel="stylesheet" type="text/css" href="main.css"/>
-  <title> Artsøvelse til Dansk Flora Eksamen </title>
-</head>
-
 <body>
-  
-  {{ difficultyTrigger }}
 
   <div class="tab">
     <button class="tablinks", id = "defaultOpen", onclick="openTab(event, 'speciesGrid')">Artskendskab</button>
     <button class="tablinks" onclick="openTab(event, 'habitatGrid')">Habitatskendskab</button>
   </div>
   
-  <div id="speciesGrid" class="tabcontent activeTab">
-    <div class="gridSidebar">
-      <p style="font-weight: bold; font-size: 56px; text-align: center; display: block; width: 95%; margin: 2.5%;">Kontrol Panel</p>
-      {{ filterObservations }}
-      {{ fetchButton }}
-      {{ switchButton }}
-      {{ speciesInformation }}
-    </div>  
-    {{ difficultyPlot }}
-    <div class="gridBody">
-      {{ speciesImage }}
-    </div>
-    <!-- <div id = "gridDivider"></div> -->
-  </div>
+  {{species}}
   
-  <div id="habitatGrid" class="tabcontent inactiveTab">
-    <div class="gridBody">
-      {{ habitatEllenberg }}
-      {{ habitatPool }}
-    </div>
-    <div class="gridSidebar">
-            <p style="font-weight: bold; font-size: 56px; text-align: center; display: block; width: 95%; margin: 2.5%;">Kontrol Panel</p>
-            {{ fetchHabitat }}
-            {{ habitatInformation }}
-            <p style="font-weight: bold; text-align: left; padding: 15px;"> OBS: Det første navn er et forsøg på, at oversætte NOVANA habitatnavne til de habitatnavne, som blev opgivet i DFV pensum. I parentes findes det "rigtige" NOVANA habitatnavn.</p>
-    </div>
-  </div>
+  {{habitats}}
 
 </body>
 </html>
