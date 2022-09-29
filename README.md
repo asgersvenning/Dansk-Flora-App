@@ -27,7 +27,11 @@ Table of Contents
         Knowledge</a>
 -   <a href="#3-notes" id="toc-3-notes">3 Notes</a>
 
-![](https://github.com/asgersvenning/Dansk-Flora-App/blob/7e1e76d32a19635dcc2a007430eac904a7e9bb57/readme_files/learnDFV_Sticker.png?raw=true)
+<center>
+
+<img src="https://github.com/asgersvenning/Dansk-Flora-App/blob/7e1e76d32a19635dcc2a007430eac904a7e9bb57/readme_files/learnDFV_Sticker.png?raw=true" width="250px">
+
+</center>
 
 <br>
 
