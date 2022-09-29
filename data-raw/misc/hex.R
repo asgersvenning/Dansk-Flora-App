@@ -3,8 +3,7 @@ library(magrittr)
 library(ggplot2)
 library(extrafont)
 library(hexSticker)
-library(rsvg)
-library(nara)
+library(svgparser)
 library(grid)
 library(terra)
 library(showtext)
@@ -72,34 +71,24 @@ font_add("CMU Serif",
 showtext_auto()
 
 
-icon_dir <- "inst/app/www/sustainScapesFavIcon.svg"
+icon_dir <- ".svg"
 
-icon <- rsvg_nativeraster(icon_dir, 800*4, 570*4) %>% 
-  nr_to_array 
+icon <- read_svg(icon_dir, npoints = 100)
 
 ratio <- function(xy) {
   xy[1]/xy[2]
 }
 
 
-hexBase <- ggplot(
-  tibble(
-    # x = c(0.75, 0.25),
-    # y = c(0.85, 0.9),
-    # lab = c("DFV", "learn")
-  ),
-  aes(
-    # x=x,y=y,label=lab
-    )
-) +
+hexBase <- ggplot() +
   # geom_text(family="CMU Serif",
   #           size = 32,
   #           color = "#3fae49") +
-  annotation_raster(icon,
+  annotation_custom(icon,
                     0, 1,
-                    0, ratio(dim(icon)[1:2])) +
+                    0, 0.725) +
   # geom_hexagon(0.5) +
-  coord_cartesian(xlim = c(0,1), ylim = c(0, 1), expand = F) +
+  coord_cartesian(xlim = c(0,1), ylim = c(0, 1), expand = F, clip="off") +
   theme_void() +
   theme(aspect.ratio = 1,
         plot.margin = margin())
@@ -107,16 +96,18 @@ hexBase <- ggplot(
 hexFinish <- sticker_mod(hexBase, 
         p_family = "CMU Serif",
         p_color = "#cb8a2aff",
-        p_size = 36,
+        p_size = 72,
         p_y = 1.45,
         s_x = 1,
         s_y = 1,
         s_width = 1.4,
         s_height = 1.4,
+        h_size = 5,
         h_fill = "#248f8f",
         h_color = "#cd8b29",
         package="learnDFV")
 
-ggsave("learnDFV_Sticker.png", hexFinish, dpi = 400, width = 4, height = 4.5, scale = .5)
-ggsave("readme_files/learnDFV_Sticker.png", hexFinish, width = 2, height = 2.25, scale = 1.25)
+ggsave("learnDFV_Sticker.png", hexFinish, dpi = 400, width = 4, height = 4.5, scale = 2)
+ggsave("readme_files/learnDFV_Sticker.png", dpi = 400, hexFinish, width = 4, height = 4.5, scale = 2)
+ggsave("inst/app/www/learnDFV_icon.png", hexFinish, dpi = 400, width = 4, height = 4.5, scale = 2)
 
