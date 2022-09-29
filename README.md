@@ -29,7 +29,7 @@ Table of Contents
 
 <center>
 
-<img src="https://raw.githubusercontent.com/asgersvenning/Dansk-Flora-App/GitHub/readme_files/learnDFV_Sticker.png" width="250px">
+<img src="https://raw.githubusercontent.com/asgersvenning/Dansk-Flora-App/GitHub/learnDFV_Sticker.png" width="250px">
 
 </center>
 

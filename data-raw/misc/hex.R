@@ -96,7 +96,7 @@ hexBase <- ggplot() +
 hexFinish <- sticker_mod(hexBase, 
         p_family = "CMU Serif",
         p_color = "#cb8a2aff",
-        p_size = 150,
+        p_size = 155,
         p_y = 1.45,
         s_x = 1,
         s_y = 1,

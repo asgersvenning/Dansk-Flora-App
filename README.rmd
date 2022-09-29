@@ -13,7 +13,7 @@ always_include_html: true
 demo_url <- "https://asvenning.shinyapps.io/lringsredskab_-_dansk_flora_og_vegetationskologi/?_ga=2.117524928.852255328.1662635286-946788904.1657455478"
 ```
 
-<center><img src="https://raw.githubusercontent.com/asgersvenning/Dansk-Flora-App/GitHub/readme_files/learnDFV_Sticker.png" width="250px"></center>
+<center><img src="https://raw.githubusercontent.com/asgersvenning/Dansk-Flora-App/GitHub/learnDFV_Sticker.png" width="250px"></center>
 
 <br>
 
