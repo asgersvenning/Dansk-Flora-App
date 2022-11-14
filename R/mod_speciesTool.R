@@ -72,6 +72,7 @@ speciesToolServer <- function(id){
     ########## Species app
     
     observeEvent(input$fetchSpecies, {
+      
       # Make sure the app queries 10 observations upon load by default (only once though!)
       if (input$fetchSpecies == 1) {
         js$addLoader()

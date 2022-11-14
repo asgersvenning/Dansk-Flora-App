@@ -1,7 +1,7 @@
 $(document).on('shiny:sessioninitialized', function(event) {
   document.getElementById('speciesImage').insertAdjacentHTML(
     'afterbegin',
-    `'<img id="loader" src="Curve-Loading.gif"></img>'`      
+    `'<img id="loader" src="www/Curve-Loading.gif"></img>'`      
   ) 
   
   window.addEventListener('keypress',difficultyInput)

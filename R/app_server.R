@@ -10,12 +10,22 @@
 #' @importFrom magrittr %>% is_greater_than set_names
 
 app_server <- function(input, output, session) {
+  shinyjs::useShinyjs(html = TRUE)
+  shinyjs::extendShinyjs("www/main.js",
+                         functions = c("backgroundCol",
+                                       "addLoader",
+                                       "toggleElement",
+                                       "canUpdateDifficulty"))
+  
   # Load the NOVANA habitat species pools
   habitats <- habitatPools %>% 
     group_by(habtype) %>% 
     mutate(n = n()) %>% 
     ungroup %>% 
     select(!fid)
+  
+  # Initiate a reactive object to store dynamic values
+  values <- reactiveValues()
   
   # Load the data frame with the INaturalist ids along with species names
   observations <- observations %>% 
@@ -25,8 +35,6 @@ app_server <- function(input, output, session) {
     mutate(n = n()) %>% 
     ungroup
   
-  # Initiate a reactive object to store dynamic values
-  values <- reactiveValues()
   # 'filterInd' should be a vector of rows to use from the observations data frame.
   # This way the observations data frame can be subsetted dynamically.
   values$filterInd <- 1:nrow(observations)
@@ -46,7 +54,7 @@ app_server <- function(input, output, session) {
   
   # When the app has finished setting up the necessary data frames and completed the first query
   # show the user a checkmark.
-  output$speciesImage <- renderText({'<img id="speciesReady" src="www/checkmark.jpg"></img>'})
+  output$speciesImage <- renderText({paste0('<img id="speciesReady" src="', "/www/checkmark.jpg", '"></img>')})
   
   # Function for subsetting the observations using the filter form in the user interface.
   observeEvent(input$filterApply, {

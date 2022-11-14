@@ -9,10 +9,13 @@ run_app <- function(
     port = 2811,
     ...
 ) {
+  # shinyApp(ui = app_ui, 
+           # server = app_server, 
+           # options = list(port = port))
   with_golem_options(
-    app = shinyApp(ui = app_ui, 
-                   server = app_server, 
-                   options = list(port = port)), 
+    app = shinyApp(ui = app_ui,
+                   server = app_server,
+                   options = list(port = port)),
     golem_opts = list(name = name, time = time),
     ...
   )

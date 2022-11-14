@@ -120,7 +120,9 @@ habitatToolServer <- function(id){
         values$thisHabitat$habtype
       })
       
-      output$habitatPool <- renderText({paste0('<img style="width: 100%;" src="histograms/',values$thisHabitat$habtype,'.png">')})
+      output$habitatPool <- renderText({paste0('<img style="width: 100%;" src="', 
+                                               paste0("www/histograms/",values$thisHabitat$habtype,".png"), 
+                                               '">')})
     })
   })
 }
