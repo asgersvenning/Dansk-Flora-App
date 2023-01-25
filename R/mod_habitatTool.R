@@ -110,8 +110,12 @@ habitatToolServer <- function(...) {
         cleanHabitatNames(values$thisHabitat$habtype)
       })
       
+      fileHabtype <- values$thisHabitat$habtype %>% 
+        stringr::str_replace_all("[[:space:]-(),]", "_") %>% 
+        stringr::str_replace_all("_+","_")
+      
       output$habitatPool <- renderText({paste0('<img style="height: 100%; margin: auto;" src="', 
-                                               paste0("www/histograms/",values$thisHabitat$habtype,".png"), 
+                                               paste0("www/histograms/", fileHabtype,".png"), 
                                                '">')})
     })
   }),

@@ -15,4 +15,7 @@ $run_dev.*
 ^appveyor\.yml$
 ^\readme_files\*
 ^learnDFV_sticker*
-^README*
+^learnDFV\.html$
+^README\.[:alpha:]{0,4}$
+^dev.xcf$
+^.HERE$

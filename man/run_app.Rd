@@ -13,7 +13,7 @@ run_app(name = "DFV Learning Tool", time = Sys.time(), port = 2811, ...)
 
 \item{port}{an integer. The network port on which the app is served.}
 
-\item{...}{additional parameters passed to 'with_golem_options'.}
+\item{`...`}{additional parameters passed to 'with_golem_options'.}
 }
 \description{
 Run the Shiny Application

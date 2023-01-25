@@ -4,7 +4,7 @@
 #' @param name a character. Name of the application shown in the browser tab.
 #' @param time an object of class 'POSIXct'. Start-up time of the app.
 #' @param port an integer. The network port on which the app is served.
-#' @param `...` additional parameters passed to 'with_golem_options'. 
+#' @param ... additional parameters passed to 'with_golem_options'. 
 #'
 #' @export
 #' @importFrom shiny shinyApp

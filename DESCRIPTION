@@ -28,7 +28,8 @@ Imports:
     shinyjs,
     stringr,
     tibble,
-    tidyr
+    tidyr,
+    fuzzyjoin
 Suggests: 
     knitr,
     rmarkdown,
