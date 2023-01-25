@@ -37,7 +37,6 @@ habitatToolUI <- function(...){
 
 habitatToolServer <- function(...) {
   eval(quote({
-    
     ###### Habitat app
     
     observeEvent(input$fetchHabitat, {

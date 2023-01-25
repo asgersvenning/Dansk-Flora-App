@@ -18,7 +18,7 @@ body {
   justify-content: center;
   padding: 10px 7px;
   margin: 0px;
-  right: 10px;
+  left: 10px;
   bottom: 10px;
   font-size: 12px;
   font-weight: bold;
@@ -33,7 +33,7 @@ body {
   /* display: none; */
   position: absolute;
   bottom: 5px;
-  right: 5px;
+  left: 5px;
   padding: 10px 0px;
   width: auto;
   background-color: rgba(0,0,0,0.15);
@@ -76,7 +76,7 @@ body {
   font-size: 0px;
   padding: 0px;
   bottom: 5px;
-  right: 5px;
+  left: 5px;
 }
 
 .inactiveTab *, .inactiveTab {
@@ -276,6 +276,10 @@ label.control-label {
   margin: 5% auto;
   display: block;
   max-width: 90%;
+}
+
+#speciesImage iframe {
+  height: 90%;
 }
 
 #speciesInformation {

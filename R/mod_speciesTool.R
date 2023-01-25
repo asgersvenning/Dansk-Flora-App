@@ -9,8 +9,6 @@
 #' @import shiny
 
 speciesToolUI <- function(...) {
-  # ns <- NS(id)
-  # tagList(
   htmlTemplate_mod(
     app_sys("app/www/species.html"),
     filterObservations = div(
@@ -42,17 +40,9 @@ speciesToolUI <- function(...) {
     speciesInformation = div(
       htmlOutput("speciesInformation"),
       htmlOutput("ellenberg")
-      # div(
-      #   textInput("guessSpecies","Art"),
-      #   textInput("guessGenus","Slægt"),
-      #   textInput("guessFamily","Familie"),
-      #   id = "Input",
-      #   style = "width: 100%;"
-      # )
     ),
     full = F
   )
-  # )
 }
 
 #' speciesTool Server Functions
@@ -80,8 +70,6 @@ speciesToolServer <- function(...) {
                                          "toggleElement",
                                          "canUpdateDifficulty",
                                          "showSpecies"))
-    # 
-    # print("TEST")
     
     ########## Species app
     
@@ -214,7 +202,7 @@ speciesToolServer <- function(...) {
         })
         
         # Replace the species image with an iframe of the species wikipedia entry
-        js$showSpecies(paste0('<iframe id="speciesIframe" src="https://arter.dk/taxa/taxon/details/',values$observationPhotos$id[values$currentInd],'" width = "1100px" height = "1500px" scrolling="yes" style="border: none; margin: 5% auto; height: inherit; width: 90%;"></iframe>'))
+        js$showSpecies(paste0('<iframe id="speciesIframe" src="https://arter.dk/taxa/taxon/details/',values$observationPhotos$id[values$currentInd],'"scrolling="yes" style="border: none; margin: 5% auto; height: 90%; width: 90%;"></iframe>'))
       }
     })
     
@@ -257,10 +245,7 @@ speciesToolServer <- function(...) {
                 aspect.ratio = 1,
                 axis.text.x = element_text(angle = 45,
                                            hjust = 1),
-                # panel.background = element_rect(fill='transparent'), #transparent panel bg
-                plot.background = element_rect(fill='transparent', color = NA), #transparent plot 
-                # legend.background = element_rect(fill='transparent'), #transparent legend bg
-                # legend.box.background = element_rect(fill='transparent')
+                plot.background = element_rect(fill='transparent', color = NA), 
           ) + 
           labs(x = NULL, y = "Sv\u00e6rhedsgrad", title = "Top 10 sv\u00e6reste arter")
       },
@@ -275,9 +260,3 @@ speciesToolServer <- function(...) {
   }),
   parent.frame(n = 1))
 }
-
-## To be copied in the UI
-# mod_speciesTool_ui("speciesTool_1")
-
-## To be copied in the server
-# mod_speciesTool_server("speciesTool_1")
