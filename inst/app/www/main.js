@@ -7,8 +7,6 @@ $( document ).ready(function() {
         };
         params = shinyjs.getParams(params, defaultParams);
         
-        console.log("TEST??")
-  
         var el = $("#" + params.id);
         el.css("background-color", params.col);
   }
@@ -31,8 +29,15 @@ $( document ).ready(function() {
         canUpdateDifficulty = true
   }
   
-  shinyjs.test = function() {
-    console.log("TESTING!!")
+  shinyjs.showSpecies= function(params) {
+    var defaultParams = {
+      html : null
+    };
+    params = shinyjs.getParams(params, defaultParams);
+    
+    console.log(params.html)
+    
+    document.getElementById('speciesImage').innerHTML = params.html
   }
 
 })

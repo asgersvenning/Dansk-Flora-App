@@ -6,8 +6,13 @@
 #' @import shiny
 #' @importFrom shinyjs useShinyjs extendShinyjs
 #' @import dplyr
+#' @import tidyr
 #' @importFrom stringr str_split
 #' @importFrom magrittr %>% is_greater_than set_names
+#' @importFrom fuzzyjoin fuzzy_left_join
+#' @imporFrom purrr map_lgl
+
+globalVariables(c("habitatPools", "habtype", "fid", "rid", "arterDK", "scientificName", "acceptedVernacularNameNotScientific.x", "acceptedVernacularNameNotScientific.y", ".", "var"))
 
 app_server <- function(input, output, session) {
   shinyjs::useShinyjs(html = TRUE)
@@ -28,12 +33,12 @@ app_server <- function(input, output, session) {
   values <- reactiveValues()
   
   # Load the data frame with the INaturalist ids along with species names
-  observations <- observations %>% 
-    ungroup %>% 
-    filter(!is.na(scientific_name)) %>%
-    group_by(scientific_name) %>% 
+  observations <- arterDK %>% 
+    group_by(scientificName) %>% 
     mutate(n = n()) %>% 
-    ungroup
+    ungroup %>% 
+    select(!acceptedVernacularNameNotScientific.y) %>% 
+    rename("acceptedVernacularNameNotScientific" = acceptedVernacularNameNotScientific.x)
   
   # 'filterInd' should be a vector of rows to use from the observations data frame.
   # This way the observations data frame can be subsetted dynamically.
@@ -42,7 +47,7 @@ app_server <- function(input, output, session) {
   # 'difficulty' is a named vector (names = species names) with the user difficulty
   # of ID'ing the observation photos. This can be used to sample the observations by
   # difficulty. The difficulties are initated as 1 for all species
-  values$difficulty <- observations$scientific_name %>% 
+  values$difficulty <- observations$scientificName %>% 
     unique %>% 
     {
       set_names(rep(1, length(.)),.)
@@ -52,31 +57,24 @@ app_server <- function(input, output, session) {
   # index of the shown observation.
   values$currentInd <- 0
   
-  # When the app has finished setting up the necessary data frames and completed the first query
-  # show the user a checkmark.
-  output$speciesImage <- renderText({paste0('<img id="speciesReady" src="', "/www/checkmark.jpg", '"></img>')})
-  
   # Function for subsetting the observations using the filter form in the user interface.
   observeEvent(input$filterApply, {
-    print(input$filterVariable)
-    print(input$filterValue)
-    
-    values$filterInd <- observations %>% 
-      select(input$filterVariable) %>% 
-      rename("var" = 1) %>% 
-      mutate(rid = row_number()) %>% 
-      filter(input$filterValue %>% 
-               str_split(",") %>% 
-               unlist %>% 
-               sapply(function(x) agrepl(x,var)) %>% 
-               rowSums %>% 
-               is_greater_than(0)) %>% 
-      pull(rid)
+    if (!(input$filterValue %in% c("", "Skriv text her!"))) {
+      values$filterInd <- observations %>% 
+        select(input$filterVariable) %>% 
+        rename("var" = 1) %>% 
+        mutate(rid = row_number()) %>% 
+        filter(input$filterValue %>% 
+                 str_split(",") %>% 
+                 unlist %>% 
+                 sapply(function(x) agrepl(x,var)) %>% 
+                 rowSums %>% 
+                 is_greater_than(0)) %>% 
+        pull(rid)
+    }
   })
   
-  # Connect shiny modules for the learning tools
+  speciesToolServer("species") # , observations, values
   
-  speciesToolServer("species")
-  
-  habitatToolServer("habitats")
+  habitatToolServer("habitats") # , values
 }

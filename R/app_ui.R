@@ -6,8 +6,8 @@ app_ui <- function() {
     golem_add_external_resources(),
     htmlTemplate(
       app_sys("app/www/index.html"),
-      habitats = speciesToolUI("habitatUI"),
-      species = habitatToolUI("speciesUI"),
+      habitats = speciesToolUI("species"),
+      species = habitatToolUI("habitats"),
       # full = T,
       # escape_header = T
     # )

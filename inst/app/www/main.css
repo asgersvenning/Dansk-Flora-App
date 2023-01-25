@@ -66,18 +66,16 @@ table.columnTable tr td {
 .gridSidebar {
   background: #AAAAAA;
   grid-area: sidebar;
-  height: 100%;
 }
 
 #habitatGrid .gridSidebar {
   background: linear-gradient(180deg, #AAAAAA 65%, transparent);
   grid-area: sidebar;
-  height: 100%;
 }
 
 .gridBody {
   grid-area: body;
-  height: 100%;
+  height: 100vh;
 }
 
 #speciesGrid {
@@ -94,9 +92,9 @@ table.columnTable tr td {
 }
 
 #habitatGrid {
-  height: 100%;
-  width: 100%;
-  min-width: 100%;
+  height: 100vh;
+  width: 100vw;
+  min-width: 100vw;
   display: grid;
   column-gap: 0%;
   grid-template:
@@ -198,20 +196,21 @@ table.columnTable tr td {
 }
 
 label.control-label {
-  display: inline-block;
+  display: none;
   width: 50px;
   font-variant: small-caps;
 }
 
 #speciesImage {
-  height: 100%;
+  height: inherit;
   width: 100%;
-  display: table
+  display: inline-flex;
 }
 
 #speciesImage img {
   margin: 5% auto;
   display: block;
+  max-width: 90%;
 }
 
 #speciesInformation {
@@ -219,9 +218,24 @@ label.control-label {
 }
 
 #speciesReady {
-  margin: 5% auto;
-  display: block;
-  width: 25vw;
+  width: 40% !important;
+  margin: auto !important;
+}
+
+#ellenberg {
+  display: flex !important;
+  margin-top: 30px;
+}
+
+#ellenberg table {
+  margin: auto;
+}
+
+p.singleHabitatText {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 10px;
+  margin-right: 5px;
 }
 
 #loader {
@@ -260,9 +274,6 @@ label.control-label {
   word-break: break-work;
 }
 
-#ellenberg table {
-  width: 100%;
-}
 
 @keyframes difficulty {
   from {
@@ -320,7 +331,7 @@ label.control-label {
 }
 
 .label.control-label {
-  display: block;
+  display: none;
 }
 
 .filterSpecies script {

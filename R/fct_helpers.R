@@ -38,6 +38,8 @@ translate_id <- Vectorize(function(id, str, latin=F) {
 #' @importFrom stringr str_to_title str_extract
 #' @importFrom magrittr %>%
 
+globalVariables(c(".", "results", "ID", "images"))
+
 combine_two <- function(x,y) {
   x <- x %>% 
     str_to_title() %>% 
@@ -71,7 +73,7 @@ combine_two <- function(x,y) {
 #' @importFrom magrittr %>% %$%
 #' @importFrom tidyr nest unnest
 
-queryPage <- function(size = 10) {
+getPage <- function(size = 10) {
   
   # Subfunction for quering the meta information of a list of INaturalist observation ID's.
   queryID <- function(ID) {
@@ -97,27 +99,26 @@ queryPage <- function(size = 10) {
            taxon_id = ids[order(outID)])
   }
   
+  observations <- eval(quote(observations), parent.frame())
+  values <- eval(quote(values), parent.frame())
+  speciesMeta <- eval(quote(speciesMeta), parent.frame()) %>% 
+    rename(taxon_id = ID)
+  
+  
   out <- observations %>%
+    
     # Subset the rows 'values$filterInd' of the observations data frame 
     slice(values$filterInd) %>% 
     # Weighted sampling of 10 rows of the observations data frame, 
     # weighting is done using a heuristic that combines the number,
     # of observations of each species and the user 'difficulty' of each species.
-    slice_sample(n = size, weight_by = log(n)/n * values$difficulty[observations$scientific_name][values$filterInd]) %>% 
+    slice_sample(n = size, weight_by = log(n)/n * values$difficulty[observations$scientificName][values$filterInd]) %>% 
     arrange(id) %>% 
-    # Query the INaturalist API for the subset and sampled observation ID's.
-    mutate(nest = queryID(id)) %>% 
-    unnest(nest) %>% 
     # Filter out observations that do not have any photos associated
-    filter(map_dbl(photo_url,length) != 0) %>%
-    # Add meta data
-    left_join(speciesMeta, "taxon_id") %>% 
-    mutate(DANSK.NAVN = translate_id(taxon_id,DANSK.NAVN),
-           LATINSK.NAVN = translate_id(taxon_id,LATINSK.NAVN,T))
+    filter(map_dbl(images, length) != 0)
   
   # This is here just so the console can be used to debug errors in the output.
-  print(out %>% 
-          relocate(photo_url), n = size)
+  print("Query executed!")
   
   
   return(out)
