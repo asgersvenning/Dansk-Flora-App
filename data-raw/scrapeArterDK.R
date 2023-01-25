@@ -106,7 +106,7 @@ allDataClass <- allData %>%
 saveRDS(allDataClass, "data-raw/clean data/arterDK.rds")
 
 library(ggmap)
-register_google("AIzaSyA3rlZxuzb99hX96tE5alhrqE1pZA2ytPs")
+#register_google(API_KEY) # Insert your own API Key
 map <- get_map("Denmark", zoom = 7, maptype = "toner-background")
 
 allData %>% 

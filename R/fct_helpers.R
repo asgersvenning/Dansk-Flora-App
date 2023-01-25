@@ -38,8 +38,6 @@ translate_id <- Vectorize(function(id, str, latin=F) {
 #' @importFrom stringr str_to_title str_extract
 #' @importFrom magrittr %>%
 
-globalVariables(c(".", "results", "ID", "images"))
-
 combine_two <- function(x,y) {
   x <- x %>% 
     str_to_title() %>% 
@@ -73,6 +71,8 @@ combine_two <- function(x,y) {
 #' @importFrom magrittr %>% %$%
 #' @importFrom tidyr nest unnest
 
+globalVariables(c(".", "results", "ID", "images"))
+
 getPage <- function(size = 10) {
   
   # Subfunction for quering the meta information of a list of INaturalist observation ID's.
@@ -99,6 +99,7 @@ getPage <- function(size = 10) {
            taxon_id = ids[order(outID)])
   }
   
+  # This is extremely 
   observations <- eval(quote(observations), parent.frame())
   values <- eval(quote(values), parent.frame())
   speciesMeta <- eval(quote(speciesMeta), parent.frame()) %>% 

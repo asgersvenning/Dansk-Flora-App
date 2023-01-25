@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Dansk Flora </title>
+    <link rel="stylesheet" href="main.css">
+    <!-- <script src="script.js"></script> -->
+  </head>
 
 <body>
 
@@ -11,6 +18,31 @@
   {{species}}
   
   {{habitats}}
+
+  <div id="appInfoButton" onclick="displayAppInfo()"> i </div>
+  <div id="appInfo">
+    <p> <b> Author: </b> Asger Svenning (2023). </p>
+    <p> <b> Contact: </b> Issues and suggestions can be made on <a href="https://github.com/asgersvenning/Dansk-Flora-App/issues"> GitHub. </a></p>
+    <p> <b> Disclaimer: </b> Images are not mine and are used for educational purposes only. Credit <a href="https://arter.dk/"> https://arter.dk/ </a>.</p>
+  </div>
+
+  <script>
+    var flag = false;
+
+    function appInfoButtonListener(event) {
+      if (event.target.id != "appInfoButton" && flag == true) {
+        flag = false;
+        document.getElementById("appInfoButton").classList.remove("active");
+        window.removeEventListener("click", appInfoButtonListener);
+      }
+    }
+
+    function displayAppInfo() {
+      document.getElementById("appInfoButton").classList.add("active");
+      window.addEventListener("click", appInfoButtonListener);
+      flag = true;
+    }
+  </script>
 
 </body>
 </html>

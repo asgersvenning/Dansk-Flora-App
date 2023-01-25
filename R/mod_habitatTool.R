@@ -108,7 +108,7 @@ habitatToolServer <- function(...) {
     # in the habitat.
     observeEvent(input$revealHabitat, {
       output$habitatInformation <- renderText({
-        values$thisHabitat$habtype
+        cleanHabitatNames(values$thisHabitat$habtype)
       })
       
       output$habitatPool <- renderText({paste0('<img style="height: 100%; margin: auto;" src="', 

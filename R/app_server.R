@@ -12,7 +12,7 @@
 #' @importFrom fuzzyjoin fuzzy_left_join
 #' @imporFrom purrr map_lgl
 
-globalVariables(c("habitatPools", "habtype", "fid", "rid", "arterDK", "scientificName", "acceptedVernacularNameNotScientific.x", "acceptedVernacularNameNotScientific.y", ".", "var"))
+globalVariables(c("habtype", "fid", "rid", "scientificName", "acceptedVernacularNameNotScientific.x", "acceptedVernacularNameNotScientific.y", ".", "var"))
 
 app_server <- function(input, output, session) {
   shinyjs::useShinyjs(html = TRUE)
