@@ -16,6 +16,6 @@ $run_dev.*
 ^\readme_files\*
 ^learnDFV_sticker*
 ^learnDFV\.html$
-^README\.[:alpha:]{0,4}$
+^README\.*
 ^dev.xcf$
 ^.HERE$
