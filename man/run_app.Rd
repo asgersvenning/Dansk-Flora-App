@@ -2,9 +2,18 @@
 % Please edit documentation in R/run_app.R
 \name{run_app}
 \alias{run_app}
-\title{Run the Shiny Application}
+\title{run_app}
 \usage{
-run_app(name = "DFV Learning Tool", time = Sys.time(), port = 2811)
+run_app(name = "DFV Learning Tool", time = Sys.time(), port = 2811, ...)
+}
+\arguments{
+\item{name}{a character. Name of the application shown in the browser tab.}
+
+\item{time}{an object of class 'POSIXct'. Start-up time of the app.}
+
+\item{port}{an integer. The network port on which the app is served.}
+
+\item{...}{additional parameters passed to 'with_golem_options'.}
 }
 \description{
 Run the Shiny Application
