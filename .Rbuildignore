@@ -13,3 +13,6 @@ $run_dev.*
 ^\.github$
 ^\.travis\.yml$
 ^appveyor\.yml$
+^\readme_files\*
+^learnDFV_sticker*
+^README*
