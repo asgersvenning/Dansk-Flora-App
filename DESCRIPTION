@@ -26,6 +26,9 @@ Imports:
     stringr,
     tibble,
     tidyr
+    covrpage
+Remotes:
+    yonicd/covrpage@HEAD
 Suggests: 
     knitr,
     rmarkdown,

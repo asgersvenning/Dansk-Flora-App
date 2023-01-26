@@ -13,7 +13,7 @@ jobs:
 
       - run: bash deploy/installDocker.sh
 
-      - run: bash deploy/deploy.sh
+      - run: bash deploy/deploy.sh test=TRUE
 
       - name: Upload results
         uses: actions/upload-artifact@main
