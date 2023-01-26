@@ -1,12 +1,12 @@
-library(tidyverse)
-library(magrittr)
-library(ggplot2)
-library(extrafont)
-library(hexSticker)
-library(svgparser)
-library(grid)
-library(terra)
-library(showtext)
+# library(tidyverse)
+# library(magrittr)
+# library(ggplot2)
+# library(extrafont)
+# library(hexSticker)
+# library(svgparser)
+# library(grid)
+# library(terra)
+# library(showtext)
 
 sticker_mod <- function(subplot, s_x=.8, s_y=.75, s_width=.4, s_height=.5,
                     package, p_x=1, p_y=1.4, p_color="#FFFFFF",

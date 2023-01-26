@@ -1,6 +1,6 @@
-#' @importFrom shiny tagList
+#' @import shiny
+#' @import shinyjs
 #' @importFrom htmltools htmlTemplate
-
 app_ui <- function() {
   tagList(
     golem_add_external_resources(),
@@ -14,10 +14,6 @@ app_ui <- function() {
   ))
 }
 
-
-
-#' @import shiny
-#' @import shinyjs
 golem_add_external_resources <- function(){
   
   golem::add_resource_path('www', app_sys('app/www'))

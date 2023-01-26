@@ -56,7 +56,6 @@ speciesToolUI <- function(...) {
 #' @importFrom ggpubr theme_pubr
 #' @importFrom kableExtra kable
 #' @importFrom tibble tibble
-#' @importFrom purrr map2_chr 
 speciesToolServer <- function(...) {
   eval(quote({
     # When the app has finished setting up the necessary data frames and completed the first query

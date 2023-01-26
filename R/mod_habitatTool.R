@@ -7,9 +7,6 @@
 #' @noRd 
 #'
 #' @import shiny
-#' @import dplyr
-#' @importFrom kableExtra kable
-#' @importFrom stringr str_replace
 
 habitatToolUI <- function(...){
   # ns <- NS(id)
@@ -32,9 +29,7 @@ habitatToolUI <- function(...){
 #' @noRd 
 #' @importFrom kableExtra kable
 #' @import dplyr
-#' @import shiny
 #' @importFrom magrittr %>%
-
 habitatToolServer <- function(...) {
   eval(quote({
     ###### Habitat app

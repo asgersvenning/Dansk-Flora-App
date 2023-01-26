@@ -1,5 +1,5 @@
 ---
-title: "learnDFV"
+title: "learndfv"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{learnDFV}
@@ -15,5 +15,5 @@ vignette: >
 # ```
 # 
 # ```{r setup}
-# # library(learnDFV)
+# # library(learndfv)
 # ```

@@ -9,8 +9,6 @@
 #' @import tidyr
 #' @importFrom stringr str_split
 #' @importFrom magrittr %>% is_greater_than set_names
-#' @importFrom fuzzyjoin fuzzy_left_join
-#' @importFrom purrr map_lgl
 
 globalVariables(c("habtype", "fid", "rid", "scientificName", "acceptedVernacularNameNotScientific.x", "acceptedVernacularNameNotScientific.y", ".", "var"))
 

@@ -1,9 +1,9 @@
-library(tidyverse)
-library(furrr)
-library(magrittr)
-library(rjson)
-library(readr)
-library(fuzzyjoin)
+# library(tidyverse)
+# library(furrr)
+# library(magrittr)
+# library(rjson)
+# library(readr)
+# library(fuzzyjoin)
 
 queryTaxons <- function(n = 200, request = "taxons") {
   paste0("https://arpo-prod-api-app.azurewebsites.net/", request, "?searchText=&take=", n, "&skip=0&notMatched=false&isDkTaxon=true&isDefaultTaxon=true&isMissingPhoto=false&hasPhoto=false&ancestorIds=d00b80a4-6d2e-41d4-81e2-aee500d1e2d1&includeAdministrativeLists=true")
@@ -105,7 +105,7 @@ allDataClass <- allData %>%
 
 saveRDS(allDataClass, "data-raw/clean data/arterDK.rds")
 
-library(ggmap)
+# library(ggmap)
 #register_google(API_KEY) # Insert your own API Key
 map <- get_map("Denmark", zoom = 7, maptype = "toner-background")
 

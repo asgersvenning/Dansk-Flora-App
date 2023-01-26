@@ -1,4 +1,4 @@
 library(testthat)
-library(learnDFV)
+library(learndfv)
 
-test_check("learnDFV")
+test_check("learndfv")

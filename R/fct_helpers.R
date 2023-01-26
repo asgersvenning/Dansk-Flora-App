@@ -69,7 +69,6 @@ combine_two <- function(x,y) {
 #' @importFrom tibble tibble
 #' @importFrom purrr map_dbl
 #' @importFrom magrittr %>% %$%
-#' @importFrom tidyr nest unnest
 
 globalVariables(c(".", "results", "ID", "images"))
 

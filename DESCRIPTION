@@ -16,7 +16,6 @@ Depends:
 Imports: 
     config (>= 0.3.1),
     dplyr,
-    fuzzyjoin,
     ggplot2,
     ggpubr,
     golem (>= 0.3.4),
