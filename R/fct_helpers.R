@@ -67,7 +67,6 @@ combine_two <- function(x,y) {
 #' @importFrom stringr str_replace
 #' @import dplyr
 #' @importFrom tibble tibble
-#' @importFrom purrr map_dbl
 #' @importFrom magrittr %>% %$%
 
 globalVariables(c(".", "results", "ID", "images"))
@@ -115,7 +114,7 @@ getPage <- function(size = 10) {
     slice_sample(n = size, weight_by = log(n)/n * values$difficulty[observations$scientificName][values$filterInd]) %>% 
     arrange(id) %>% 
     # Filter out observations that do not have any photos associated
-    filter(map_dbl(images, length) != 0)
+    filter(sapply(images, length) != 0)
   
   # This is here just so the console can be used to debug errors in the output.
   print("Query executed!")

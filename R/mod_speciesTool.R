@@ -35,8 +35,8 @@ speciesToolUI <- function(...) {
     fetchButton = actionButton("fetchSpecies", "Tryk for (ny) art!"),
     switchButton = actionButton("switchImage", "Skift billede"),
     speciesImage = htmlOutput("speciesImage"),
-    difficultyTrigger = htmlOutput("difficultyTrigger"),
-    difficultyPlot = plotOutput("difficultyPlot", width = Inf, height = Inf),
+    # difficultyTrigger = htmlOutput("difficultyTrigger"),
+    # difficultyPlot = plotOutput("difficultyPlot", width = Inf, height = Inf),
     speciesInformation = div(
       htmlOutput("speciesInformation"),
       htmlOutput("ellenberg")
@@ -52,8 +52,6 @@ speciesToolUI <- function(...) {
 #' @importFrom shinyjs js hideElement showElement delay toggleElement 
 #' @import dplyr
 #' @importFrom magrittr extract %>%
-#' @import ggplot2
-#' @importFrom ggpubr theme_pubr
 #' @importFrom kableExtra kable
 #' @importFrom tibble tibble
 speciesToolServer <- function(...) {
@@ -218,43 +216,44 @@ speciesToolServer <- function(...) {
       values$difficulty[values$observationPhotos$scientificName[values$currentInd]] <-
         values$difficulty[values$observationPhotos$scientificName[values$currentInd]] * update
       
-      output$difficultyTrigger <- renderText({paste0('<p id = "difficulty" style = "display: none;">', 
-                                                     switch(input$difficulty,
-                                                            "49" = "Nem",
-                                                            "50" = "Tilpas",
-                                                            "51" = "Usikker",
-                                                            "52" = "Sv\u00e6r"),
-                                                     '</p>')})
+      # output$difficultyTrigger <- renderText({paste0('<p id = "difficulty" style = "display: none;">', 
+      #                                                switch(input$difficulty,
+      #                                                       "49" = "Nem",
+      #                                                       "50" = "Tilpas",
+      #                                                       "51" = "Usikker",
+      #                                                       "52" = "Sv\u00e6r"),
+      #                                                '</p>')})
       
-      output$difficultyPlot <- renderPlot({
-        tibble(Species = names(values$difficulty),
-               Difficulty = values$difficulty) %>%
-          filter(Difficulty != 1) %>%
-          arrange(desc(Difficulty),Species) %>% 
-          mutate(Species = factor(Species, levels = unique(Species))) %>% 
-          slice_head(n = 10) %>% 
-          ggplot(aes(Species,Difficulty)) +
-          geom_col() +
-          theme_pubr() +
-          theme(text = element_text(family = "Georgia"),
-                title = element_text(face = "bold"),
-                plot.title = element_text(face = "plain",
-                                          hjust = .5,
-                                          size  = 16),
-                aspect.ratio = 1,
-                axis.text.x = element_text(angle = 45,
-                                           hjust = 1),
-                plot.background = element_rect(fill='transparent', color = NA), 
-          ) + 
-          labs(x = NULL, y = "Sv\u00e6rhedsgrad", title = "Top 10 sv\u00e6reste arter")
-      },
-      width = 1000,
-      height = 1000,
-      res = 200,
-      bg="transparent")
-      
-      showElement("difficulty",T,"fade",.5)
-      delay(3000,hideElement("difficulty",T,"fade",1.5))
+      # Difficulty plot disabled to remove the ggplot dependency
+      # output$difficultyPlot <- renderPlot({
+      #   tibble(Species = names(values$difficulty),
+      #          Difficulty = values$difficulty) %>%
+      #     filter(Difficulty != 1) %>%
+      #     arrange(desc(Difficulty),Species) %>% 
+      #     mutate(Species = factor(Species, levels = unique(Species))) %>% 
+      #     slice_head(n = 10) %>% 
+      #     ggplot(aes(Species,Difficulty)) +
+      #     geom_col() +
+      #     theme_pubr() +
+      #     theme(text = element_text(family = "Georgia"),
+      #           title = element_text(face = "bold"),
+      #           plot.title = element_text(face = "plain",
+      #                                     hjust = .5,
+      #                                     size  = 16),
+      #           aspect.ratio = 1,
+      #           axis.text.x = element_text(angle = 45,
+      #                                      hjust = 1),
+      #           plot.background = element_rect(fill='transparent', color = NA), 
+      #     ) + 
+      #     labs(x = NULL, y = "Sv\u00e6rhedsgrad", title = "Top 10 sv\u00e6reste arter")
+      # },
+      # width = 1000,
+      # height = 1000,
+      # res = 200,
+      # bg="transparent")
+      # 
+      # showElement("difficulty",T,"fade",.5)
+      # delay(3000,hideElement("difficulty",T,"fade",1.5))
     })
   }),
   parent.frame(n = 1))
