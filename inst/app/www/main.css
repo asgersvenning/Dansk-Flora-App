@@ -307,10 +307,12 @@ p.singleHabitatText {
   margin-right: 5px;
 }
 
-#loader {
-  margin: 5% auto;
+img#loader {
+  margin: auto;
   display: block;
-  width: 50%;
+  max-width: 50vw;
+  max-height: 50vw;
+  aspect-ratio: 1;
 }
 
 .speciesName {

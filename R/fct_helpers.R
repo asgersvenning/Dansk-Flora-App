@@ -171,6 +171,6 @@ htmlTemplate_mod <- function(..., full = F, escape_header = F) {
   if (escape_header) {
     return(remove_header_comment(out))
   }
-    
+
   out
 }
