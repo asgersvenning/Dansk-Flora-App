@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
@@ -19,3 +21,5 @@ $run_dev.*
 ^README\.*
 ^dev.xcf$
 ^.HERE$
+^Dockerfile$
+^\.dockerignore$
