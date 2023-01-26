@@ -16,13 +16,10 @@ Depends:
 Imports: 
     config (>= 0.3.1),
     dplyr,
-    ggplot2,
-    ggpubr,
     golem (>= 0.3.4),
     htmltools,
     kableExtra,
     magrittr,
-    purrr,
     rjson,
     shiny (>= 1.7.2),
     shinyjs,

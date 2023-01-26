@@ -34,7 +34,10 @@ golem::add_shinyserver_file()
 ## Docker ----
 ## If you want to deploy via a generic Dockerfile
 golem::add_dockerfile()
-golem::add_dockerfile_with_renv(output = "deploy")
+golem::add_dockerfile_with_renv(
+  output = "deploy",
+  dockerfile_cmd = 'R -e "options("shiny.port"=80,shiny.host="0.0.0.0");library(learndfv);learndfv::run_app(port = 80)"'
+)
 
 ## If you want to deploy to ShinyProxy
 golem::add_dockerfile_with_renv_shinyproxy()
