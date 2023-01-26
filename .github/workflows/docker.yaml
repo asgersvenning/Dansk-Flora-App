@@ -11,9 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - run: Rscript fit_model.R
-
-      - run: Rscript -e 'rmarkdown::render("report.Rmd")'
+      - run: bash deploy/deploy.sh
 
       - name: Upload results
         uses: actions/upload-artifact@main
