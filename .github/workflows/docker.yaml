@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - run: bash deploy/installDocker.sh
+
       - run: bash deploy/deploy.sh
 
       - name: Upload results
