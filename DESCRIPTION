@@ -39,6 +39,6 @@ VignetteBuilder:
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
-LazyData: true
+LazyData: false
 LazyDataCompression: xz
 RoxygenNote: 7.2.3

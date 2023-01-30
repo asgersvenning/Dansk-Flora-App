@@ -20,6 +20,12 @@ app_server <- function(input, output, session) {
                                        "toggleElement",
                                        "canUpdateDifficulty"))
   
+  load(habitatPools)
+  load(observations)
+  load(arterDK)
+  load(ellenberg)
+  load(speciesMeta)
+  
   # Load the NOVANA habitat species pools
   habitats <- habitatPools %>% 
     group_by(habtype) %>% 
