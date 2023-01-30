@@ -20,12 +20,6 @@ app_server <- function(input, output, session) {
                                        "toggleElement",
                                        "canUpdateDifficulty"))
   
-  load(habitatPools)
-  load(observations)
-  load(arterDK)
-  load(ellenberg)
-  load(speciesMeta)
-  
   # Load the NOVANA habitat species pools
   habitats <- habitatPools %>% 
     group_by(habtype) %>% 
@@ -41,8 +35,8 @@ app_server <- function(input, output, session) {
     group_by(scientificName) %>% 
     mutate(n = n()) %>% 
     ungroup %>% 
-    select(!acceptedVernacularNameNotScientific.y) %>% 
-    rename("acceptedVernacularNameNotScientific" = acceptedVernacularNameNotScientific.x)
+    # select(!acceptedVernacularNameNotScientific.y) %>% 
+    rename("acceptedVernacularNameNotScientific" = acceptedVernacularNameNotScientific.y)
   
   # 'filterInd' should be a vector of rows to use from the observations data frame.
   # This way the observations data frame can be subsetted dynamically.

@@ -78,7 +78,8 @@ speciesToolServer <- function(...) {
       if (input$fetchSpecies == 1) {
         js$addLoader()
         
-        values$observationPhotos <- getPage()
+        values$observationPhotos <- getPage() %>% 
+          left_join(arterDKMeta, by = "scientificName")
       }
       
       # Increment the current observation index upon user input on the button 'TRYK FOR (NY) ART!'
@@ -98,7 +99,8 @@ speciesToolServer <- function(...) {
         # Show a loading symbol until the query is completed.
         js$addLoader()
         
-        values$observationPhotos <- getPage()
+        values$observationPhotos <- getPage() %>% 
+          left_join(arterDKMeta, by = "scientificName")
       }
       
       # Store the urls of the current observation photos.
@@ -170,7 +172,7 @@ speciesToolServer <- function(...) {
           } else {
             habitats <- habitats %>%
               filter(n > 0.05) %>% 
-              arrange(desc(n)) %>% 
+              dplyr::arrange(desc(.$n)) %>% 
               summarize(
                 out = paste0("<p class=\"singleHabitatText\" style=\"opacity:", n, "\">", habtype, "</p>")
               ) %>% 

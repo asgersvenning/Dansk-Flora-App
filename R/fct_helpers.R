@@ -112,7 +112,7 @@ getPage <- function(size = 10) {
     # weighting is done using a heuristic that combines the number,
     # of observations of each species and the user 'difficulty' of each species.
     slice_sample(n = size, weight_by = log(n)/n * values$difficulty[observations$scientificName][values$filterInd]) %>% 
-    arrange(id) %>% 
+    # arrange(id) %>% 
     # Filter out observations that do not have any photos associated
     filter(sapply(images, length) != 0)
   

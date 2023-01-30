@@ -126,8 +126,6 @@
         "glue",
         "knitr",
         "magrittr",
-        "rmarkdown",
-        "roxygen2",
         "stringr",
         "withr"
       ]
@@ -251,7 +249,6 @@
         "MASS",
         "abind",
         "carData",
-        "lme4",
         "mgcv",
         "nlme",
         "nnet",
@@ -350,23 +347,8 @@
         "curl",
         "git2r",
         "remotes",
-        "rmarkdown",
-        "testthat",
         "whisker",
         "withr"
-      ]
-    },
-    "cowplot": {
-      "Package": "cowplot",
-      "Version": "1.1.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "b418e8423699d11c7f2087c2bfd07da2",
-      "Requirements": [
-        "ggplot2",
-        "gtable",
-        "rlang",
-        "scales"
       ]
     },
     "cpp11": {
@@ -440,12 +422,9 @@
         "rcmdcheck",
         "remotes",
         "rlang",
-        "roxygen2",
         "rversions",
         "sessioninfo",
-        "testthat",
         "urlchecker",
-        "usethis",
         "withr"
       ]
     },
@@ -636,7 +615,6 @@
       "Repository": "CRAN",
       "Hash": "b68f6aa0a868bb2d2d5c7cef286c3008",
       "Requirements": [
-        "cowplot",
         "dplyr",
         "ggplot2",
         "ggrepel",
@@ -742,10 +720,8 @@
         "here",
         "htmltools",
         "pkgload",
-        "roxygen2",
         "rstudioapi",
         "shiny",
-        "usethis",
         "yaml"
       ]
     },
@@ -819,7 +795,6 @@
         "htmltools",
         "jsonlite",
         "knitr",
-        "rmarkdown",
         "yaml"
       ]
     },
@@ -907,7 +882,6 @@
         "htmltools",
         "knitr",
         "magrittr",
-        "rmarkdown",
         "rstudioapi",
         "rvest",
         "scales",
@@ -966,35 +940,6 @@
       "Hash": "d908914ae53b04d4c0c0fd72ecc35370",
       "Requirements": []
     },
-    "learndfv": {
-      "Package": "learndfv",
-      "Version": "0.0.0.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "Dansk-Flora-App",
-      "RemoteUsername": "asgersvenning",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "2384bdee261f46213057defdc3328e233e38d45f",
-      "Hash": "f78dcbb403113d2f242c2b5e354e5461",
-      "Requirements": [
-        "config",
-        "dplyr",
-        "ggplot2",
-        "ggpubr",
-        "golem",
-        "htmltools",
-        "kableExtra",
-        "magrittr",
-        "purrr",
-        "rjson",
-        "shiny",
-        "shinyjs",
-        "stringr",
-        "tibble",
-        "tidyr"
-      ]
-    },
     "lifecycle": {
       "Package": "lifecycle",
       "Version": "1.0.3",
@@ -1005,24 +950,6 @@
         "cli",
         "glue",
         "rlang"
-      ]
-    },
-    "lme4": {
-      "Package": "lme4",
-      "Version": "1.1-31",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "67581bdc21e3d5e6881cf47c0c3113eb",
-      "Requirements": [
-        "MASS",
-        "Matrix",
-        "Rcpp",
-        "RcppEigen",
-        "boot",
-        "lattice",
-        "minqa",
-        "nlme",
-        "nloptr"
       ]
     },
     "magrittr": {
@@ -1110,9 +1037,7 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "277c67a08f358f42b6a77826e4492f79",
-      "Requirements": [
-        "testthat"
-      ]
+      "Requirements": []
     },
     "nnet": {
       "Package": "nnet",
@@ -1159,7 +1084,6 @@
         "Matrix",
         "broom",
         "dplyr",
-        "lme4",
         "numDeriv"
       ]
     },
@@ -1226,7 +1150,6 @@
         "purrr",
         "ragg",
         "rlang",
-        "rmarkdown",
         "tibble",
         "whisker",
         "withr",
@@ -1476,48 +1399,6 @@
       "Hash": "4ed1f8336c8d52c3e750adcdc57228a7",
       "Requirements": []
     },
-    "rmarkdown": {
-      "Package": "rmarkdown",
-      "Version": "2.20",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "716fde5382293cc94a71f68c85b78d19",
-      "Requirements": [
-        "bslib",
-        "evaluate",
-        "htmltools",
-        "jquerylib",
-        "jsonlite",
-        "knitr",
-        "stringr",
-        "tinytex",
-        "xfun",
-        "yaml"
-      ]
-    },
-    "roxygen2": {
-      "Package": "roxygen2",
-      "Version": "7.2.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "7b153c746193b143c14baa072bae4e27",
-      "Requirements": [
-        "R6",
-        "brew",
-        "cli",
-        "commonmark",
-        "cpp11",
-        "desc",
-        "knitr",
-        "pkgload",
-        "purrr",
-        "rlang",
-        "stringi",
-        "stringr",
-        "withr",
-        "xml2"
-      ]
-    },
     "rprojroot": {
       "Package": "rprojroot",
       "Version": "2.0.3",
@@ -1761,33 +1642,6 @@
         "cpp11"
       ]
     },
-    "testthat": {
-      "Package": "testthat",
-      "Version": "3.1.6",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "7910146255835c66e9eb272fb215248d",
-      "Requirements": [
-        "R6",
-        "brio",
-        "callr",
-        "cli",
-        "desc",
-        "digest",
-        "ellipsis",
-        "evaluate",
-        "jsonlite",
-        "lifecycle",
-        "magrittr",
-        "pkgload",
-        "praise",
-        "processx",
-        "ps",
-        "rlang",
-        "waldo",
-        "withr"
-      ]
-    },
     "textshaping": {
       "Package": "textshaping",
       "Version": "0.3.6",
@@ -1871,34 +1725,6 @@
         "cli",
         "curl",
         "xml2"
-      ]
-    },
-    "usethis": {
-      "Package": "usethis",
-      "Version": "2.1.6",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "a67a22c201832b12c036cc059f1d137d",
-      "Requirements": [
-        "cli",
-        "clipr",
-        "crayon",
-        "curl",
-        "desc",
-        "fs",
-        "gert",
-        "gh",
-        "glue",
-        "jsonlite",
-        "lifecycle",
-        "purrr",
-        "rappdirs",
-        "rlang",
-        "rprojroot",
-        "rstudioapi",
-        "whisker",
-        "withr",
-        "yaml"
       ]
     },
     "utf8": {

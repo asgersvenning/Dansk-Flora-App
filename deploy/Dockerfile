@@ -7,4 +7,4 @@ RUN rm /app.tar.gz
 EXPOSE 80
 RUN ls -l
 ARG test
-RUN if [ "$test" = true ]; then "../tests/testthat/test-app.R"; else R -e "options('shiny.port'=80, shiny.host='0.0.0.0'); library(learndfv); learndfv::run_app(port = 80)"; fi   
+RUN if [ "$test" = true ]; then "learndfv:::test_app()"; else R -e "options('shiny.port'=80, shiny.host='0.0.0.0'); library(learndfv); learndfv::run_app(port = 80)"; fi   

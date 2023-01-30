@@ -103,7 +103,19 @@ allDataClass <- allData %>%
   # pull(classification) %>% 
   # first
 
-saveRDS(allDataClass, "data-raw/clean data/arterDK.rds")
+arterDKMeta <- allDataClass %>% 
+  select(where(~!any(sapply(., is.null)))) %>% 
+  select(where(~!is.list(.))) %>% 
+  group_by(scientificName) %>% 
+  summarize(
+    across(everything(), ~set_names(first(.x, default = NA), length(unique(.x))))
+  ) %>%
+  select(scientificName, where(~all(names(.) == 1)))
+
+saveRDS(arterDKMeta, "data-raw/clean data/arterDKMeta.rds")
+saveRDS(allDataClass %>% 
+          select(scientificName,!names(arterDKMeta)), "data-raw/clean data/arterDK.rds",
+        compress = T)
 
 # library(ggmap)
 #register_google(API_KEY) # Insert your own API Key
