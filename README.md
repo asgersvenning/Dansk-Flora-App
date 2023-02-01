@@ -48,53 +48,7 @@ Demo:
 
 # 1 Setup
 
-**Important:** It is important to update R and RTools to the newest
-version (both can be found on [the offical website of
-R](https://www.r-project.org/)) and RStudio as the app has not been
-created with compatibility in mind. The app has been verified to work on
-*“R version 4.1.3 (2022-03-10)”*.
-
-1)  Make sure to install and update the following packages to ensure
-    that the app works; **shiny**, **shinyjs**, **tidyverse**,
-    **rjson**, **rrapply**, **magrittr**, **keys**, **extrafont**,
-    **googlesheets4**, **kableExtra**, **furrr**, **ggpubr** and
-    **hash**. If you are unsure if you have all these packages installed
-    copy and run the following code (:
-
-<!-- -->
-
-    # Vector of the names of necessary packages for the app to run
-    necessaryPackages <- c("shiny", "shinyjs", "keys",          # Packages for shiny app functionality
-                           "tidyverse", "furrr",                # ------|------data wrangling and more 
-                           "rrapply", "magrittr",               # ------|------data wrangling
-                           "googlesheets4", "rjson",            # ------|------data import
-                           "hash",                              # ------|------efficient dictionaries
-                           "extrafont", "ggpubr", "kableExtra") # ------|------plots and tables
-
-    # Loops over all the packages, try to load package, on error install package instead.
-    sapply(necessaryPackages, function(x) {
-      tryCatch({
-        library(x, character.only = T)
-      },
-      error = function(y) install.packages(x))
-    })
-
-2)  Open and run the R script file *“runApp.R”*.
-
-3)  A few important notes on the app in it’s current state:
-
-    -   In order to view the first observation or habitat, the user must
-        wait until the loading wheel turns into a green checkmark and
-        only at this point press the button “Tryk for (ny) art” or “Tryk
-        for (ny) habitat”.
-    -   The app may be a bit slow, especially when used on
-        [shinyapps.io](https://asvenning.shinyapps.io/lringsredskab_-_dansk_flora_og_vegetationskologi/?_ga=2.117524928.852255328.1662635286-946788904.1657455478)
-        since *shinyapps.io* is a free service, but the app should
-        execute the user input once it catches up.
-    -   The app was not designed initially to be used on a server.
-    -   If the app freezes (which is quite possible) the user should
-        refresh the page or restart the app, depending on how the user
-        is using the app (*shinyapps.io* vs. locally).
+To be updated! But basically just run the `deploy/deploy.sh` bash script.
 
 # 2 Detailed Information and Documentation
 

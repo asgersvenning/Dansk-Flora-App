@@ -14,8 +14,13 @@ run_app <- function(
     name = "DFV Learning Tool", 
     time = Sys.time(), 
     port = 2811,
+    test = "false",
     ...
 ) {
+  if (test == "true") {
+    test_app()
+  }
+  else {
   with_golem_options(
     app = shinyApp(ui = app_ui,
                    server = app_server,
@@ -23,4 +28,5 @@ run_app <- function(
     golem_opts = list(name = name, time = time),
     ...
   )
+  }
 }

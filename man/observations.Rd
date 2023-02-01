@@ -3,12 +3,13 @@
 \docType{data}
 \name{observations}
 \alias{observations}
-\title{observations}
+\alias{arterDKMeta}
+\title{arterDKMeta}
 \format{
-## `observations`
+## `arterDKMeta`
 }
 \usage{
-data(observations)
+data(arterDKMeta)
 }
 \description{
 Internal app dataframe. Exposed for transparency.

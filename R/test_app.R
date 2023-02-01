@@ -2,7 +2,7 @@
 #' @description Internal test function.
 #' @noRd
 #' 
-#' @importFrom shiny shinyApp, testServer
+#' @importFrom shiny shinyApp testServer
 
 test_app <- function() {
   testServer(shinyApp(app_ui, app_server), {

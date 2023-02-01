@@ -16,29 +16,21 @@
 ## Run checks ----
 ## Check the package before sending to prod
 devtools::check(vignettes = F)
-rhub::check_for_cran()
 
 # Deploy
 
 ## Local, CRAN or Package Manager ----
 ## This will build a tar.gz that can be installed locally,
 ## sent to CRAN, or to a package manager
-devtools::build()
-
-## RStudio ----
-## If you want to deploy on RStudio related platforms
-golem::add_rstudioconnect_file()
-golem::add_shinyappsio_file()
-golem::add_shinyserver_file()
+devtools::build(path = "deploy", vignettes = F)
 
 ## Docker ----
 ## If you want to deploy via a generic Dockerfile
-golem::add_dockerfile()
-golem::add_dockerfile_with_renv(
-  output = "deploy",
-  dockerfile_cmd = 'R -e "options("shiny.port"=80,shiny.host="0.0.0.0");library(learndfv);learndfv::run_app(port = 80)"'
-)
+######## !! DO NOT RUN !! #########
+## This is only kept as the dockerfile was initially created using the function below, however it has been manually edited!!
+# golem::add_dockerfile_with_renv(
+#   output = "deploy",
+#   dockerfile_cmd = 'R -e "options("shiny.port"=80,shiny.host="0.0.0.0");library(learndfv);learndfv::run_app(port = 80)"'
+# )
 
-## If you want to deploy to ShinyProxy
-golem::add_dockerfile_with_renv_shinyproxy()
 

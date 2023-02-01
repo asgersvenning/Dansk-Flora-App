@@ -52,7 +52,7 @@ speciesToolUI <- function(...) {
 #' @importFrom shinyjs js hideElement showElement delay toggleElement 
 #' @import dplyr
 #' @importFrom magrittr extract %>%
-#' @importFrom kableExtra kable
+#' @importFrom knitr kable
 #' @importFrom tibble tibble
 speciesToolServer <- function(...) {
   eval(quote({

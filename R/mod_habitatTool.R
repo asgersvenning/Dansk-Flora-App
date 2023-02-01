@@ -27,7 +27,7 @@ habitatToolUI <- function(...){
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
 #' @noRd 
-#' @importFrom kableExtra kable
+#' @importFrom knitr kable
 #' @import dplyr
 #' @importFrom magrittr %>%
 habitatToolServer <- function(...) {

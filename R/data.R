@@ -42,16 +42,16 @@
 #' @usage data(habitatPools)
 "habitatPools"
 
-#' observations
+#' arterDKMeta
 #' @description Internal app dataframe. Exposed for transparency.
 #' 
-#' @format ## `observations`
+#' @format ## `arterDKMeta`
 #' 
 #' @docType data
 #' @keywords datasets
 #' @name observations
-#' @usage data(observations)
-"observations"
+#' @usage data(arterDKMeta)
+"arterDKMeta"
 
 #' speciesMeta
 #' @description Internal app dataframe. Exposed for transparency.

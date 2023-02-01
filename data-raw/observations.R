@@ -1,8 +1,8 @@
-library(tidyverse)
-library(magrittr)
-library(rvest)
-library(rjson)
-library(future.apply)
+# library(tidyverse)
+# library(magrittr)
+# library(rvest)
+# library(rjson)
+# library(future.apply)
 
 getObs <- function(n, skip) {
   if (skip <= 0 | n <= 0 | !(skip == as.integer(skip)) | !(n == as.integer(n))) stop("'skip' and 'n' must be positive integers.")
