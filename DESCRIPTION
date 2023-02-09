@@ -24,6 +24,7 @@ Imports:
     shiny (>= 1.7.2),
     shinyjs,
     stringr,
+    stringi,
     tibble,
     tidyr
 Suggests:

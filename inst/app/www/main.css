@@ -27,6 +27,7 @@ body {
   background: rgba(0, 0, 0, 0.15);
   z-index: 100;
   transition: all 1s ease-in-out;
+  cursor: pointer;
 }
 
 #appInfo {
@@ -267,19 +268,31 @@ label.control-label {
 }
 
 #speciesImage {
-  height: inherit;
+  height: 100%;
   width: 100%;
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 #speciesImage img {
   margin: 5% auto;
   display: block;
   max-width: 90%;
+  max-height: 90vh;
+}
+
+#speciesImage a {
+  position: fixed;
+  bottom: 2vh;
+  padding: 0 0 0 10px;
+  background: #fff;
 }
 
 #speciesImage iframe {
-  height: 90%;
+  height: 90vh;
 }
 
 #speciesInformation {

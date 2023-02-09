@@ -14,14 +14,14 @@ speciesToolUI <- function(...) {
     filterObservations = div(
       selectInput("filterVariable", 
                   NULL,
-                  c("scientificName",
-                    "acceptedVernacularNameNotScientific",
-                    "scientific_Sl\u00e6gt",
-                    "scientific_Familie",
-                    "scientific_Orden",
-                    "scientific_Klasse",
-                    "scientific_R\u00e6kke"),
-                  selected = "scientific_Familie"),
+                  c("Navn (latin)",
+                    "Navn (dansk)",
+                    "Sl\u00e6gt (latin)",
+                    "Familie (latin)",
+                    "Orden (latin)",
+                    "Klasse (latin)",
+                    "R\u00e6kke (latin)"),
+                  selected = "Familie (latin)"),
       textInput("filterValue",
                 NULL,
                 "Skriv text her!"),
@@ -51,9 +51,10 @@ speciesToolUI <- function(...) {
 #' @import shiny
 #' @importFrom shinyjs js hideElement showElement delay toggleElement 
 #' @import dplyr
-#' @importFrom magrittr extract %>%
+#' @importFrom magrittr extract %>% %$%
 #' @importFrom knitr kable
 #' @importFrom tibble tibble
+#' @importFrom rjson fromJSON
 speciesToolServer <- function(...) {
   eval(quote({
     # When the app has finished setting up the necessary data frames and completed the first query
@@ -72,14 +73,11 @@ speciesToolServer <- function(...) {
     
     observeEvent(input$fetchSpecies, {
       
-      # if (!is.null(values$observationPhotos)) print(values$observationPhotos[values$currentInd, ])
-      
       # Make sure the app queries 10 observations upon load by default (only once though!)
       if (input$fetchSpecies == 1) {
         js$addLoader()
         
-        values$observationPhotos <- getPage() %>% 
-          left_join(arterDKMeta, by = "scientificName")
+        values$observationPhotos <- getPage()
       }
       
       # Increment the current observation index upon user input on the button 'TRYK FOR (NY) ART!'
@@ -87,8 +85,6 @@ speciesToolServer <- function(...) {
       # Some observations contain more than 1 photo, initially show the 1st
       values$whichImage <- 1
       
-      # Legacy code that used to show a user input box, where the user could input a guess as text.
-      #js$toggleElement("Input", "inline")
       # Remove the ellenberg element upon loading new observation.
       toggleElement("ellenberg","none")
       
@@ -99,19 +95,29 @@ speciesToolServer <- function(...) {
         # Show a loading symbol until the query is completed.
         js$addLoader()
         
-        values$observationPhotos <- getPage() %>% 
-          left_join(arterDKMeta, by = "scientificName")
+        values$observationPhotos <- getPage()
       }
       
       # Store the urls of the current observation photos.
       values$img_urls <- values$observationPhotos$images[[values$currentInd]]
+      values$observer <- values$observationPhotos$observer[values$currentInd]
+      values$observerURL <- paste0("https://arpo-prod-api-app.azurewebsites.net/account?searchText=",
+                                   URLencode(values$observer) 
+                                   ,"&take=1&skip=0&sortType=7") %>% 
+        fromJSON(file = .) %$%
+        items %>% 
+        {
+          tryCatch({paste0('href="https://arter.dk/user/', .[[1]]$id, '"')}, error = function(x) "Ukendt")
+        }
+        
       
       # If an observation has more than one picture, change the color of the 'SKIFT BILLEDE' to slightly yellow.
-      if (length(values$img_urls) > 1) js$backgroundCol("switchImage","#ffa") else js$backgroundCol("switchImage","#fff")
+      if (length(values$img_urls) > 1) js$backgroundCol("switchImage","#ff8") else js$backgroundCol("switchImage","#fff")
       
       # Create a html img element with the source pointing to the current observation photo url.
-      photo_html <- photo_html <- paste0(# '<a href="',values$observationPhotos$images[values$currentInd],'">',
-        '<img id="speciesImg" onload="rotateImg()" src="',values$img_urls[values$whichImage], '">' # '"></a>'
+      photo_html <- paste0(
+        '<img id="speciesImg" onload="rotateImg()" src="', values$img_urls[values$whichImage], '">\n',
+        '<a ', values$observerURL, '>Foto: ', values$observer, '</a>'
       )
       js$showSpecies(photo_html)
       
@@ -128,16 +134,17 @@ speciesToolServer <- function(...) {
       if (input$fetchSpecies > 0) {
         values$whichImage <- if (values$whichImage == length(values$img_urls)) 1 else values$whichImage + 1
         
-        photo_html <- paste0(# '<a href="',values$observationPhotos$images[values$currentInd],'">',
-          '<img id="speciesImg" onload="rotateImg()" src="',values$img_urls[values$whichImage], '">' # '"></a>'
+        photo_html <- paste0(
+          '<img id="speciesImg" onload="rotateImg()" src="', values$img_urls[values$whichImage], '">\n',
+          '<a ', values$observerURL, '>Foto: ', values$observer, '</a>'
         )
+        
         js$showSpecies(photo_html)
       }
     })
     
     # When the button 'AFSLOR ARTEN!' is pressed:
     observeEvent(input$revealSpecies, {
-      # js$toggleElement("Input")
       # Allow the user to input a difficulty score
       js$canUpdateDifficulty()
       
@@ -149,23 +156,26 @@ speciesToolServer <- function(...) {
             slice(values$currentInd)
           
           taxonomy <- observationInfo %>% 
-            select(which(stringr::str_detect(colnames(.), "^scientific_|^vernacular_"))) %>% 
+            select(acceptedVernacularName, scientificName, 
+                   which(stringr::str_detect(colnames(.), "^scientific_|^vernacular_"))) %>%
+            rename("vernacular_Name" = acceptedVernacularName, "scientific_Name" = scientificName) %>% 
             tidyr::pivot_longer(everything(), names_to="rank", values_to="name") %>% 
             mutate(type = factor(stringr::str_extract(rank, "^scientific|^vernacular")),
                    rank = stringr::str_remove(rank, "^scientific_|^vernacular_")) %>% 
             tidyr::pivot_wider(type, names_from=rank, values_from=name) %>% 
             summarize(across(!type, ~paste0(.x[1], " (", .x[2], ")"))) %>% 
+            relocate(1, 7, 6, 5, 4, 3, 2) %>% 
             unlist
           
           taxonomy <- c(
-            paste0('<p class = "speciesName">', observationInfo$scientificName[1], " / ", observationInfo$acceptedVernacularNameNotScientific[1], "</p>"),
+            paste0('<p class = "speciesName">', observationInfo$scientificName[1], " / ", observationInfo$acceptedVernacularName[1], "</p>"),
             paste0('<p class = "speciesTaxonomy">', taxonomy ,"</p>")
           ) %>% 
             paste0(collapse = "")
           
           habitats <- observationInfo %>% 
             pull(habitats) %>% 
-            first 
+            first
           
           if (is.null(habitats) || is.na(habitats) || all(habitats$n <= 0.05)) {
             habitats <- "Sj\u00e6lden eller ukendt"
@@ -217,45 +227,6 @@ speciesToolServer <- function(...) {
       # Update difficulty scores
       values$difficulty[values$observationPhotos$scientificName[values$currentInd]] <-
         values$difficulty[values$observationPhotos$scientificName[values$currentInd]] * update
-      
-      # output$difficultyTrigger <- renderText({paste0('<p id = "difficulty" style = "display: none;">', 
-      #                                                switch(input$difficulty,
-      #                                                       "49" = "Nem",
-      #                                                       "50" = "Tilpas",
-      #                                                       "51" = "Usikker",
-      #                                                       "52" = "Sv\u00e6r"),
-      #                                                '</p>')})
-      
-      # Difficulty plot disabled to remove the ggplot dependency
-      # output$difficultyPlot <- renderPlot({
-      #   tibble(Species = names(values$difficulty),
-      #          Difficulty = values$difficulty) %>%
-      #     filter(Difficulty != 1) %>%
-      #     arrange(desc(Difficulty),Species) %>% 
-      #     mutate(Species = factor(Species, levels = unique(Species))) %>% 
-      #     slice_head(n = 10) %>% 
-      #     ggplot(aes(Species,Difficulty)) +
-      #     geom_col() +
-      #     theme_pubr() +
-      #     theme(text = element_text(family = "Georgia"),
-      #           title = element_text(face = "bold"),
-      #           plot.title = element_text(face = "plain",
-      #                                     hjust = .5,
-      #                                     size  = 16),
-      #           aspect.ratio = 1,
-      #           axis.text.x = element_text(angle = 45,
-      #                                      hjust = 1),
-      #           plot.background = element_rect(fill='transparent', color = NA), 
-      #     ) + 
-      #     labs(x = NULL, y = "Sv\u00e6rhedsgrad", title = "Top 10 sv\u00e6reste arter")
-      # },
-      # width = 1000,
-      # height = 1000,
-      # res = 200,
-      # bg="transparent")
-      # 
-      # showElement("difficulty",T,"fade",.5)
-      # delay(3000,hideElement("difficulty",T,"fade",1.5))
     })
   }),
   parent.frame(n = 1))

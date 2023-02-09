@@ -8,12 +8,9 @@ $(document).on('shiny:sessioninitialized', function(event) {
 
 
 $( document ).ready(function() {
-  
   difficultyInput = function(event) {
-    console.log(event)
     if ([49,50,51,52].some(function(code) {return code == event.which}) && canUpdateDifficulty) {
       canUpdateDifficulty = false
-      console.log(event.which)
       Shiny.setInputValue("difficulty",String(event.which),{priority: "event"})
     }
   }

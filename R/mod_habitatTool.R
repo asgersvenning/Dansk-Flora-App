@@ -37,7 +37,13 @@ habitatToolServer <- function(...) {
     observeEvent(input$fetchHabitat, {
       # Sample a random NOVANA habitat plot/circle, weighted according to the frequency of the habitat
       values$thisHabitat <- habitats %>%
-        slice_sample(n = 1, weight_by = log(n)/n)
+        slice_sample(n = 1, weight_by = log(n)/n) %>% 
+        mutate(pool = lapply(pool, function(x) {
+          tibble(
+            LATINSK.NAVN = unname(x),
+            DANSK.NAVN = names(x)
+          )
+        }))
       
       
       # Show a table of the species list in the current NOVANA habitat plot/circle
@@ -75,6 +81,7 @@ habitatToolServer <- function(...) {
                                  unlist(values$thisHabitat$pool[[1]]$LATINSK.NAVN)) %>%
                         select(8:12) %>%
                         summarize(across(everything(),mean,na.rm=T)) %>%
+                        mutate(across(everything(), ~ifelse(is.na(.x), "-", as.character(round(., 1))))) %>% 
                         kable("html",align="c",digits = 2) %>%
                         str_replace("<table>",'<table style="margin: auto; font-size: 24px; border-spacing: 5vw 5px; border: solid 2px;">'),
                       "\n<br>\n<br>\n<br>\n",
@@ -86,8 +93,8 @@ habitatToolServer <- function(...) {
                       values$thisHabitat$pool[[1]]$LATINSK.NAVN %>% 
                         unlist %>%
                         createTable(tableClass = "columnTable latinTable"))
-        cat(out)
-        out
+        
+        return(out)
       })
       
       # Create a button ('Afslor habitatet!') for revealing the habitat.
@@ -106,8 +113,11 @@ habitatToolServer <- function(...) {
       })
       
       fileHabtype <- values$thisHabitat$habtype %>% 
+        replace_eoa %>% 
+        stringr::str_remove_all("\\/") %>% 
+        stringr::str_squish() %>% 
         stringr::str_replace_all("[[:space:]-(),]", "_") %>% 
-        stringr::str_replace_all("_+","_")
+        stringr::str_replace_all("_+","_") 
       
       output$habitatPool <- renderText({paste0('<img style="height: 100%; margin: auto;" src="', 
                                                paste0("www/histograms/", fileHabtype,".png"), 
@@ -163,4 +173,24 @@ cleanHabitatNames <- function(name) {
            "rullestrand (kystklint eller -klippe)" = "Rullestrand (Kystklint eller -klippe)"
     )
   })(tolower(name))))
+}
+
+
+#' replace_eoa
+#' 
+#' @param str, a character vector
+#' 
+#' @returns a character vector with danish letters replaced by eoa
+#' 
+#' @importFrom stringr str_replace_all
+#' @importFrom magrittr %>%
+
+replace_eoa <- function(str) {
+  str %>% 
+    str_replace_all("\U00E6", "e") %>% 
+    str_replace_all("\U00C6", "E") %>% 
+    str_replace_all("\U00F8", "o") %>% 
+    str_replace_all("\U00D8", "O") %>% 
+    str_replace_all("\U00E5", "a") %>% 
+    str_replace_all("\U00C5", "A")
 }

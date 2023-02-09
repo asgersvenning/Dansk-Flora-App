@@ -1,3 +1,11 @@
+# library(readr)
+# library(tidyr)
+# library(tibble)
+# library(dplyr)
+# library(sf)
+# library(hash)
+# library(stringr)
+
 # Read the habitat meta data frame and subset the habitats in the course curriculum
 habMeta <- read_csv2("raw data/habitatMeta.csv") %>% 
   filter(!is.na(DFV.NAME)) %>% 
@@ -29,6 +37,40 @@ plotHab <- read_rds("raw data/Spatial.rds") %>%
 
 write_rds(plotHab, "clean data/plotHabitat.rds", compress = "xz")
 
+
+DK2LT <- arterDKMeta %>% 
+  select(scientificName, acceptedVernacularName) %>%
+  mutate(src = "ArterDK") %>% 
+  bind_rows(select(DFV_pensum_w_ID, LATINSK.NAVN, DANSK.NAVN) %>% 
+              set_colnames(c("scientificName", "acceptedVernacularName")) %>% 
+              mutate(src = "DFV")) %>% 
+  group_by(scientificName, src) %>% 
+  summarize(
+    acceptedVernacularName = acceptedVernacularName[which.min(nchar(acceptedVernacularName))][1]
+  ) %>% 
+  nest(vernac = !scientificName) %>% 
+  mutate(vernac = map(vernac, function(x) {
+    if (nrow(x) == 1) return(x)
+    
+    if (length(unique(x$acceptedVernacularName)) == 2) {
+      x %>% 
+        filter(src == "DFV")
+    } 
+    else {
+      x %>% 
+        summarize(
+          acceptedVernacularName = first(acceptedVernacularName),
+          src = "Both"
+        )
+    }
+  })) %>% 
+  unnest(vernac)
+
+name_hash <- hash(
+  c(DK2LT$scientificName, "Bryopsida"), 
+  c(DK2LT$acceptedVernacularName, "Bladmosser")
+)
+
 # Transform the species presence matrix into a species pool dataframe (much more efficient due to the number of missing species pr. plot, i.e. 0 entries) and clean and translate the species names to Danish add Wikipedia URL convenience. 
 plotHab %>%
   select(!c(3:29)) %>%
@@ -38,12 +80,21 @@ plotHab %>%
   mutate(across(!c(1:2),~ifelse(.x==1,1,NA))) %>% 
   pivot_longer(!c(1:2),names_to="species",values_drop_na = T) %>% 
   mutate(LATINSK.NAVN = str_replace_all(species,"_"," ") %>%
-           stringr::str_to_sentence(),
-         DANSK.NAVN = hash::values(name_hash,LATINSK.NAVN),
-         wiki_url = hash::values(wiki_hash,LATINSK.NAVN),
-         wiki_url = ifelse(str_detect(wiki_url,"https"),wiki_url,NA),
-         LATINSK.NAVN = str_extract(LATINSK.NAVN, "\\S+ \\S+|\\S+")) %>%
+           str_remove(" \\S{0,4}$") %>% 
+           stringr::str_to_sentence() %>% 
+           str_extract("\\S+ \\S+|\\S+"),
+         DANSK.NAVN = map_chr(LATINSK.NAVN, function(x) {
+           if (!has.key(x, name_hash)) return(x)
+           values(name_hash, x)
+         })) %>%
   select(!c(value,species)) %>%
-  nest(pool = c(LATINSK.NAVN,DANSK.NAVN,wiki_url)) %>%
-  mutate(habtype = replace_aeo(habtype)) %>% 
+  nest(pool = c(LATINSK.NAVN,DANSK.NAVN)) %>%
+  mutate(pool = map(pool, function(x) {
+    x %>% 
+      mutate(LATINSK.NAVN = LATINSK.NAVN %>% 
+               set_names(DANSK.NAVN)) %>% 
+      pull(LATINSK.NAVN)
+  })) %>% 
+  mutate(habtype = stringi::stri_escape_unicode(habtype)) %>% 
+  # mutate(habtype = replace_aeo(habtype)) %>% 
   write_rds("clean data/habitatPools.rds",compress="xz") 

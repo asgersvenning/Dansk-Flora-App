@@ -1,14 +1,3 @@
-#' DFV_pensum_w_ID
-#' @description Internal app dataframe. Exposed for transparency.
-#' 
-#' @format ## `DFV_pensum_w_ID`
-#' 
-#' @docType data
-#' @keywords datasets
-#' @name DFV_pensum_w_ID
-#' @usage data(DFV_pensum_w_ID)
-"DFV_pensum_w_ID"
-
 #' arterDK
 #' @description Internal app dataframe. Exposed for transparency.
 #' 

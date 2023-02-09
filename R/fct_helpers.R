@@ -59,7 +59,7 @@ combine_two <- function(x,y) {
   }
 }
 
-#' querypage
+#' getPage
 #' @description Function for getting the information (photo urls etc.) for 10 random (weighted according to some heuristics) observations. 10 observations are queried at once for efficiency and "throttle" api requests, since the INaturalist API is rather slow and also does not like being pinged to often.
 #' @noRd
 #' 
@@ -71,54 +71,28 @@ combine_two <- function(x,y) {
 
 globalVariables(c(".", "results", "ID", "images"))
 
-getPage <- function(size = 10) {
-  
-  # Subfunction for quering the meta information of a list of INaturalist observation ID's.
-  queryID <- function(ID) {
-    res <- ID %>% 
-      paste0(collapse=",") %>% 
-      paste0("https://api.inaturalist.org/v1/observations/",.) %>% 
-      fromJSON(file = .) %$% 
-      results
+getPage <- function() {
+  # This is extremely cursed, but it works.
+  out <- eval(quote({
+    temp_ <- observations %>%
+      # Subset the rows 'values$filterInd' of the observations data frame 
+      slice(values$filterInd) %>% 
+      # Weighted sampling of 10 rows of the observations data frame, 
+      # weighting is done using a heuristic that combines the number,
+      # of observations of each species and the user 'difficulty' of each species.
+      slice_sample(n = 10, weight_by = log(n)/n * values$difficulty[observations$scientificName][values$filterInd]) %>% 
+      # Filter out observations that do not have any photos associated
+      filter(nchar(images) != 0) %>% 
+      mutate(images = str_split(images, "\\|\\|")) %>%
+      left_join(arterDKMeta, by = "scientificName")
     
-    urls <- res %>% 
-      lapply(function(x) {
-        sapply(x$observation_photos, function(y) y$photo$url) %>% 
-          str_replace("/square\\.", "/large.")
-      })
+    if (values$pensum) {
+      temp_ <- temp_ %>% 
+        mutate(acceptedVernacularName = pensumName)
+    }
     
-    ids <- res %>% 
-      sapply(function(x) x$taxon$min_species_taxon_id %>% unlist %>% first)
-    
-    outID <- res %>% 
-      sapply(function(x) x$id) 
-    
-    tibble(photo_url = urls[order(outID)],
-           taxon_id = ids[order(outID)])
-  }
-  
-  # This is extremely 
-  observations <- eval(quote(observations), parent.frame())
-  values <- eval(quote(values), parent.frame())
-  speciesMeta <- eval(quote(speciesMeta), parent.frame()) %>% 
-    rename(taxon_id = ID)
-  
-  
-  out <- observations %>%
-    
-    # Subset the rows 'values$filterInd' of the observations data frame 
-    slice(values$filterInd) %>% 
-    # Weighted sampling of 10 rows of the observations data frame, 
-    # weighting is done using a heuristic that combines the number,
-    # of observations of each species and the user 'difficulty' of each species.
-    slice_sample(n = size, weight_by = log(n)/n * values$difficulty[observations$scientificName][values$filterInd]) %>% 
-    # arrange(id) %>% 
-    # Filter out observations that do not have any photos associated
-    filter(sapply(images, length) != 0)
-  
-  # This is here just so the console can be used to debug errors in the output.
-  print("Query executed!")
-  
+    temp_
+  }), parent.frame())
   
   return(out)
 }

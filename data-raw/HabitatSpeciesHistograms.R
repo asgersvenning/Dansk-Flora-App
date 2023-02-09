@@ -1,10 +1,18 @@
+# library(readr)
+# library(stringr)
+# library(stringi)
+# library(dplyr)
+# library(tibble)
+# library(future.apply)
+# library(magrittr)
+
 plotHab <- read_rds("clean data/plotHabitat.rds")
 
 # Creates a dictionary for translating between Danish and scientific names
 plan("multisession")
 danishNames <- names(plotHab)[30:ncol(plotHab)] %>% 
   str_replace_all("_"," ") %>% 
-  stringr::str_to_sentence() %>% 
+  str_to_sentence() %>% 
   future_sapply(translate_from_latin)
 plan("sequential")
 
@@ -20,7 +28,7 @@ name_hash <- hash(names(danishNames),unlist(danishNames))
 plan("multisession")
 wiki_urls <- names(plotHab)[30:ncol(plotHab)] %>%
   str_replace_all("_"," ") %>% 
-  stringr::str_to_sentence() %>% 
+  str_to_sentence() %>% 
   future_sapply(translate_from_latin,link=T,lang="da")
 plan("sequential")
 

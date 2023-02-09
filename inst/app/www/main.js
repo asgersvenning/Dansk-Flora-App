@@ -33,10 +33,8 @@ $( document ).ready(function() {
     var defaultParams = {
       html : null
     };
+
     params = shinyjs.getParams(params, defaultParams);
-    
-    console.log(params.html)
-    
     document.getElementById('speciesImage').innerHTML = params.html
   }
 

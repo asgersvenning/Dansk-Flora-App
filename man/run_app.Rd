@@ -4,7 +4,13 @@
 \alias{run_app}
 \title{run_app}
 \usage{
-run_app(name = "DFV Learning Tool", time = Sys.time(), port = 2811, ...)
+run_app(
+  name = "DFV Learning Tool",
+  time = Sys.time(),
+  port = 2811,
+  test = "false",
+  ...
+)
 }
 \arguments{
 \item{name}{a character. Name of the application shown in the browser tab.}
@@ -12,6 +18,8 @@ run_app(name = "DFV Learning Tool", time = Sys.time(), port = 2811, ...)
 \item{time}{an object of class 'POSIXct'. Start-up time of the app.}
 
 \item{port}{an integer. The network port on which the app is served.}
+
+\item{test}{a character. "true" is interpreted as True while everything else is interpreted as False. If "true" don't start server, instead run a test.}
 
 \item{...}{additional parameters passed to 'with_golem_options'.}
 }
