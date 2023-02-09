@@ -1,13 +1,13 @@
 To deploy the application as a Google Cloud Run service, first open the Cloud Shell in the Google Cloud Console. Then, run the following commands:
     
-    docker pull docker.io/asvenning/learndfv:init
+    docker pull docker.io/asvenning/learndfv:ready
 
-    docker tag docker.io/asvenning/learndfv:init gcr.io/dummydfv/learndfv:init
+    docker tag docker.io/asvenning/learndfv:init gcr.io/dummydfv/learndfv:ready
     
-    docker push gcr.io/dummydfv/learndfv:init
+    docker push gcr.io/dummydfv/learndfv:ready
     
     gcloud run deploy learndfv \
-      --image gcr.io/dummydfv/learndfv:init \
+      --image gcr.io/dummydfv/learndfv:ready \
       --platform managed \
       --region europe-west1 \
       --allow-unauthenticated \
