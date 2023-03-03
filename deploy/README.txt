@@ -2,7 +2,7 @@ To deploy the application as a Google Cloud Run service, first open the Cloud Sh
     
     docker pull docker.io/asvenning/learndfv:ready
 
-    docker tag docker.io/asvenning/learndfv:init gcr.io/dummydfv/learndfv:ready
+    docker tag docker.io/asvenning/learndfv:ready gcr.io/dummydfv/learndfv:ready
     
     docker push gcr.io/dummydfv/learndfv:ready
     
@@ -11,6 +11,8 @@ To deploy the application as a Google Cloud Run service, first open the Cloud Sh
       --platform managed \
       --region europe-west1 \
       --allow-unauthenticated \
-      --port 80 
+      --port 80 \
+      --cpu 1 \
+      --memory 2Gi
 
 OBS: "dummydfv" is merely a placeholder for the name of the google cloud project. Replace it with the name of your project.

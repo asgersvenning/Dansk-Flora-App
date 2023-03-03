@@ -22,6 +22,8 @@ devtools::check(vignettes = F)
 ## Local, CRAN or Package Manager ----
 ## This will build a tar.gz that can be installed locally,
 ## sent to CRAN, or to a package manager
+### VERY IMPORTANT!! ###
+### The argument 'path = "deploy"' ensures that the built package tar.gz file is saved in the correct location! ### 
 devtools::build(path = "deploy", vignettes = F)
 
 ## Docker ----

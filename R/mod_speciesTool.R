@@ -59,7 +59,7 @@ speciesToolServer <- function(...) {
   eval(quote({
     # When the app has finished setting up the necessary data frames and completed the first query
     # show the user a checkmark.
-    output$speciesImage <- renderText({paste0('<img id="speciesReady" src="', "/www/checkmark.jpg", '"></img>')})
+    output$speciesImage <- renderText({paste0('<img id="speciesReady" src="', "www/checkmark.jpg", '"></img>')})
     
     shinyjs::useShinyjs(html = TRUE)
     shinyjs::extendShinyjs("www/main.js",

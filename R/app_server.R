@@ -7,8 +7,6 @@
 #' @importFrom shinyjs useShinyjs extendShinyjs
 #' @import dplyr
 #' @import tidyr
-#' @importFrom stringr str_split
-#' @importFrom stringi stri_unescape_unicode
 #' @importFrom magrittr %>% is_greater_than set_names
 
 globalVariables(c("habtype", "fid", "rid", "scientificName", "acceptedVernacularNameNotScientific.x", "acceptedVernacularNameNotScientific.y", ".", "var"))
@@ -78,12 +76,12 @@ app_server <- function(input, output, session) {
                              "Klasse (latin)" = "scientific_Klasse",
                              "R\u00e6kke (latin)" = "scientific_R\u00e6kke")
       
-      pensumFlag <- str_detect(input$filterValue, regex("pensum", T))
-      filterRegex <- if (pensumFlag) str_remove_all(input$filterValue, "pensum *,* *| *,*$") else input$filterValue
+      pensumFlag <- stringr::str_detect(input$filterValue, stringr::regex("pensum", T))
+      filterRegex <- if (pensumFlag) stringr::str_remove_all(input$filterValue, "pensum *,* *| *,*$") else input$filterValue
       values$pensum <- pensumFlag
       
       filterRegexes <- filterRegex %>% 
-        str_split(" *, *") %>% 
+        stringr::str_split(" *, *") %>% 
         unlist %>%
         extract(which(nchar(.) > 2))
       

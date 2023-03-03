@@ -83,7 +83,7 @@ getPage <- function() {
       slice_sample(n = 10, weight_by = log(n)/n * values$difficulty[observations$scientificName][values$filterInd]) %>% 
       # Filter out observations that do not have any photos associated
       filter(nchar(images) != 0) %>% 
-      mutate(images = str_split(images, "\\|\\|")) %>%
+      mutate(images = stringr::str_split(images, "\\|\\|")) %>%
       left_join(arterDKMeta, by = "scientificName")
     
     if (values$pensum) {
