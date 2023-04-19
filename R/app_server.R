@@ -107,6 +107,8 @@ app_server <- function(input, output, session) {
       
       
       values$filterInd <- which(observations$scientificName %in% arterFilter)
+      
+      print(values$filterInd)
     }
   })
   

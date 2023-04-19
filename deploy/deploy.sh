@@ -1,4 +1,4 @@
-cd deploy/
+# cd deploy/
 test=false
 if [ "$1" == "test" ]; then
     test=true

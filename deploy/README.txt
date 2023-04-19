@@ -13,6 +13,6 @@ To deploy the application as a Google Cloud Run service, first open the Cloud Sh
       --allow-unauthenticated \
       --port 80 \
       --cpu 1 \
-      --memory 2Gi
+      --memory 1Gi
 
 OBS: "dummydfv" is merely a placeholder for the name of the google cloud project. Replace it with the name of your project.

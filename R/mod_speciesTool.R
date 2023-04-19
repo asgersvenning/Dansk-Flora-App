@@ -11,27 +11,24 @@
 speciesToolUI <- function(...) {
   htmlTemplate_mod(
     app_sys("app/www/species.html"),
-    filterObservations = div(
-      selectInput("filterVariable", 
-                  NULL,
-                  c("Navn (latin)",
-                    "Navn (dansk)",
-                    "Sl\u00e6gt (latin)",
-                    "Familie (latin)",
-                    "Orden (latin)",
-                    "Klasse (latin)",
-                    "R\u00e6kke (latin)"),
-                  selected = "Familie (latin)"),
-      textInput("filterValue",
-                NULL,
-                "Skriv text her!"),
-      br(class = ""),
-      actionButton("filterApply",
-                   "Filtrer",
-                   width="100%"),
-      cellArgs = list(class = "filterSpecies"),
-      id = "filterInput"
-    ),
+    filterVariable = selectInput("filterVariable", 
+                                 NULL,
+                                 c("Navn (latin)",
+                                   "Navn (dansk)",
+                                   "Sl\u00e6gt (latin)",
+                                   "Familie (latin)",
+                                   "Orden (latin)",
+                                   "Klasse (latin)",
+                                   "R\u00e6kke (latin)"),
+                                 selected = "Familie (latin)"),
+    filterInput = textInput("filterValue",
+                            NULL,
+                            "Skriv text her!"),
+    filterApply  = actionButton("filterApply",
+                                "Filtrer"),
+    toggleIframe = checkboxInput("toggleIframe", "Vis arter.dk (langsomt)", 
+                                 width = "fit-content"),
+    cellArgs = list(class = "filterSpecies"),
     fetchButton = actionButton("fetchSpecies", "Tryk for (ny) art!"),
     switchButton = actionButton("switchImage", "Skift billede"),
     speciesImage = htmlOutput("speciesImage"),
@@ -109,7 +106,7 @@ speciesToolServer <- function(...) {
         {
           tryCatch({paste0('href="https://arter.dk/user/', .[[1]]$id, '"')}, error = function(x) "Ukendt")
         }
-        
+      
       
       # If an observation has more than one picture, change the color of the 'SKIFT BILLEDE' to slightly yellow.
       if (length(values$img_urls) > 1) js$backgroundCol("switchImage","#ff8") else js$backgroundCol("switchImage","#fff")
@@ -162,7 +159,7 @@ speciesToolServer <- function(...) {
             tidyr::pivot_longer(everything(), names_to="rank", values_to="name") %>% 
             mutate(type = factor(stringr::str_extract(rank, "^scientific|^vernacular")),
                    rank = stringr::str_remove(rank, "^scientific_|^vernacular_")) %>% 
-            tidyr::pivot_wider(type, names_from=rank, values_from=name) %>% 
+            tidyr::pivot_wider(id_cols = type, names_from=rank, values_from=name) %>% 
             summarize(across(!type, ~paste0(.x[1], " (", .x[2], ")"))) %>% 
             relocate(1, 7, 6, 5, 4, 3, 2) %>% 
             unlist
@@ -211,7 +208,7 @@ speciesToolServer <- function(...) {
         })
         
         # Replace the species image with an iframe of the species wikipedia entry
-        js$showSpecies(paste0('<iframe id="speciesIframe" src="https://arter.dk/taxa/taxon/details/',values$observationPhotos$id[values$currentInd],'"scrolling="yes" style="border: none; margin: 5% auto; height: 90%; width: 90%;"></iframe>'))
+        if (input$toggleIframe) js$showSpecies(paste0('<iframe id="speciesIframe" src="https://arter.dk/taxa/taxon/details/',values$observationPhotos$id[values$currentInd],'"scrolling="yes" style="border: none; margin: 5% auto; height: 90%; width: 90%;"></iframe>'))
       }
     })
     

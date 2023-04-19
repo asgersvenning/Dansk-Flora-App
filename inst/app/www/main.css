@@ -500,3 +500,9 @@ button:hover {
 button:active {
   transform: translateY(-1px);
 }
+
+.shiny-input-container:not(.shiny-input-container-inline) {
+    width: 50%;
+    max-width: 100%;
+    margin: auto;
+}
